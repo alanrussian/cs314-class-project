@@ -6,6 +6,6 @@ body {
     margin-bottom: 20px;
 }
 
-.results tr td:last-child {
+.results tr td:last-child, .results tr th:last-child {
     text-align: right;
 }

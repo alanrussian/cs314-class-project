@@ -95,7 +95,7 @@ require_once('include/functions.php');
                     <th>Year Founded</th>
                     <th>Location Founded</th>
                     <th>Website</th>
-                    <th></th>
+                    <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
                 </tr>
             </thead>
 
