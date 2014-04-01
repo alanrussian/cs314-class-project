@@ -112,7 +112,7 @@ require_once('include/functions.php');
 
             <tbody>
                 <tr>
-                    <td><a href="#">Mac DeMarco</a></td>
+                    <td><a href="artist_detail.php?name=Mac%20DeMarco">Mac DeMarco</a></td>
                     <td>2009</td>
                     <td>Edmonton, Alberta</td>
                     <td>Still Together</td>
@@ -121,7 +121,7 @@ require_once('include/functions.php');
                 </tr>
                 
                 <tr>
-                    <td><a href="#">Girls</a></td>
+                    <td><a href="artist_detail.php?name=Girls">Girls</a></td>
                     <td>2007</td>
                     <td>San Francisco, California</td>
                     <td>2012</td>

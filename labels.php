@@ -101,7 +101,7 @@ require_once('include/functions.php');
 
             <tbody>
                 <tr>
-                    <td><a href="#">Merge Records</a></td>
+                    <td><a href="label_detail.php?name=Merge%20Records">Merge Records</a></td>
                     <td>1989</td>
                     <td>Durham, North Carolina</td>
                     <td><a href="http://mergerecords.com">http://mergerecords.com</a></td>

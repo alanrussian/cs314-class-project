@@ -100,7 +100,7 @@ require_once('include/functions.php');
                 <tr>
                     <td>1</td>
                     <td>Neighborhood #1 (Tunnels)</td>
-                    <td><a href="#">Funeral</a></td>
+                    <td><a href="album_detail.php?name=Funeral">Funeral</a></td>
                     <td>4:48</td>
                     <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>

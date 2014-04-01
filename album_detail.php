@@ -58,23 +58,25 @@ require_once('include/functions.php');
 
       <!-- Main component for a primary marketing message or call to action -->
       <div>
-        <h1 class="page-header">Albums</h1>
-        <h2>Filter</h2>
+        <h1 class="page-header">Album: Funeral</h1>
+        <h2>Attributes</h2>
         <form role="form">
             <div class="form-group">
-                <label for="filterName">Name</label>
-                <input type="text" class="form-control" id="filterName" placeholder="Enter name">
+                <label for="editName">Name</label>
+                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Funeral">
             </div>
 
             <div class="form-group">
-                <label for="filterArtist">Artist</label>
-                <input type="text" class="form-control" id="filterArtist" placeholder="Enter artist">
-            </div>
-
-            <div class="form-group">
-                <label for="filterType">Type</label>
-                <select class="form-control" id="filterType">
+                <label for="editArtist">Artist</label>
+                <select class="form-control" id="editArtist">
                     <option>-----</option>
+                    <option selected="selected">Arcade Fire</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="editType">Type</label>
+                <select class="form-control" id="editType">
                     <option value="LP">LP</option>
                     <option value="EP">EP</option>
                     <option value="Single">Single</option>
@@ -82,48 +84,45 @@ require_once('include/functions.php');
             </div>
 
             <div class="form-group">
-                <label for="filterGenre">Genre</label>
-                <select class="form-control" id="filterGenre">
-                    <option>-----</option>
+                <label for="editGenre">Genre</label>
+                <select class="form-control" id="editGenre">
+                    <option selected="selected">Indie Rock</option>
                     <!-- Todo: Get from database -->
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="filterReleaseDate">Relase Date</label>
-                <input type="text" class="form-control" id="filterReleaseDate" placeholder="Enter release date">
+                <label for="editReleaseDate">Relase Date</label>
+                <input type="text" class="form-control" id="editReleaseDate" placeholder="Enter release date" value="January 1, 2004">
             </div>
 
             <div class="form-group">
-                <label for="filterLabel">Label</label>
-                <input type="text" class="form-control" id="filterLabel" placeholder="Enter label">
+                <label for="editLabel">Label</label>
+                <select class="form-control" id="editLabel">
+                    <option selected="selected">Merge Records</option>
+                    <!-- Todo: Get from database -->
+                </select>
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">
+            <input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values">
         </form>
-
-        <h2>Results</h2>
+        
+        <h2>Songs</h2>
         <table class="table table-striped results">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Artist</th>
-                    <th>Type</th>
-                    <th>Genre</th>
-                    <th>Release Date</th>
-                    <th>Label</th>
+                    <th>Track Number</th>
+                    <th>Title</th>
+                    <th>Duration</th>
                     <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <td><a href="album_detail.php?name=In%20The%20Aeroplane%20over%20the%20Sea">In the Aeroplane over the Sea</a></td>
-                    <td><a href="artist_detail.php?name=Neutral%20Milk%20Hotel">Neutral Milk Hotel</a></td>
-                    <td>LP</td>
-                    <td>Indie Rock</td>
-                    <td>May 10, 1998</td>
-                    <td><a href="labels.php?name=Merge%20Records">Merge Records</a></td>
+                    <td>1</td>
+                    <td>Neighborhood #1 (Tunnels)</td>
+                    <td>4:48</td>
                     <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
         </table>

@@ -48,9 +48,9 @@ require_once('include/functions.php');
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="artists.php">Artists</a></li>
-              <li class="active"><a href="albums.php">Albums</a></li>
+              <li><a href="albums.php">Albums</a></li>
               <li><a href="songs.php">Songs</a></li>
-              <li><a href="labels.php">Labels</a></li>
+              <li class="active"><a href="labels.php">Labels</a></li>
               <li><a href="musicians.php">Musicians</a></li>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -58,51 +58,8 @@ require_once('include/functions.php');
 
       <!-- Main component for a primary marketing message or call to action -->
       <div>
-        <h1 class="page-header">Albums</h1>
-        <h2>Filter</h2>
-        <form role="form">
-            <div class="form-group">
-                <label for="filterName">Name</label>
-                <input type="text" class="form-control" id="filterName" placeholder="Enter name">
-            </div>
-
-            <div class="form-group">
-                <label for="filterArtist">Artist</label>
-                <input type="text" class="form-control" id="filterArtist" placeholder="Enter artist">
-            </div>
-
-            <div class="form-group">
-                <label for="filterType">Type</label>
-                <select class="form-control" id="filterType">
-                    <option>-----</option>
-                    <option value="LP">LP</option>
-                    <option value="EP">EP</option>
-                    <option value="Single">Single</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="filterGenre">Genre</label>
-                <select class="form-control" id="filterGenre">
-                    <option>-----</option>
-                    <!-- Todo: Get from database -->
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="filterReleaseDate">Relase Date</label>
-                <input type="text" class="form-control" id="filterReleaseDate" placeholder="Enter release date">
-            </div>
-
-            <div class="form-group">
-                <label for="filterLabel">Label</label>
-                <input type="text" class="form-control" id="filterLabel" placeholder="Enter label">
-            </div>
-
-            <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">
-        </form>
-
-        <h2>Results</h2>
+        <h1 class="page-header">Label: Merge Records</h1>
+        <h2>Albums</h2>
         <table class="table table-striped results">
             <thead>
                 <tr>
@@ -111,7 +68,6 @@ require_once('include/functions.php');
                     <th>Type</th>
                     <th>Genre</th>
                     <th>Release Date</th>
-                    <th>Label</th>
                     <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
                 </tr>
             </thead>
@@ -123,7 +79,6 @@ require_once('include/functions.php');
                     <td>LP</td>
                     <td>Indie Rock</td>
                     <td>May 10, 1998</td>
-                    <td><a href="labels.php?name=Merge%20Records">Merge Records</a></td>
                     <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
         </table>

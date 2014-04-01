@@ -86,7 +86,7 @@ require_once('include/functions.php');
 
             <tbody>
                 <tr>
-                    <td><a href="#">Panda Bear</a></td>
+                    <td><a href="musician_detail.php?name=Panda%20Bear&birthdate=19780617">Panda Bear</a></td>
                     <td>July 17, 1978</td>
                     <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
