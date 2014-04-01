@@ -67,8 +67,8 @@ require_once('include/functions.php');
             </div>
 
             <div class="form-group">
-                <label for="filterYear">Year Founded</label>
-                <select class="form-control" id="filterYear">
+                <label for="filterYearFounded">Year Founded</label>
+                <select class="form-control" id="filterYearFounded">
                     <option value="">-----</option>
                     <?php print_year_options(); ?>
                 </select>
@@ -78,6 +78,16 @@ require_once('include/functions.php');
                 <label for="filterLocation">Location Founded</label>
                 <input type="text" class="form-control" id="filterLocation" placeholder="Enter location">
             </div>
+
+            <div class="form-group">
+                <label for="filterYearDisbanded">Year Disbanded</label>
+                <select class="form-control" id="filterYearDisbanded">
+                    <option value="">-----</option>
+                    <option value="NULL">Still Together</option>
+                    <?php print_year_options(); ?>
+                </select>
+            </div>
+
 
             <div class="form-group">
                 <label for="filterWebsite">Website</label>
@@ -94,6 +104,7 @@ require_once('include/functions.php');
                     <th>Name</th>
                     <th>Year Founded</th>
                     <th>Location Founded</th>
+                    <th>Year Disbanded</th>
                     <th>Website</th>
                     <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
                 </tr>
@@ -104,6 +115,7 @@ require_once('include/functions.php');
                     <td><a href="#">Mac DeMarco</a></td>
                     <td>2009</td>
                     <td>Edmonton, Alberta</td>
+                    <td>Still Together</td>
                     <td><a href="http://www.capturedtracks.com/artists/mac-demarco-2/">http://www.capturedtracks.com/artists/mac-demarco-2/</a></td>
                     <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
@@ -112,6 +124,7 @@ require_once('include/functions.php');
                     <td><a href="#">Girls</a></td>
                     <td>2007</td>
                     <td>San Francisco, California</td>
+                    <td>2012</td>
                     <td><a href="https://www.facebook.com/GIRLSsf">https://www.facebook.com/GIRLSsf</a></td>
                     <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
