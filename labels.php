@@ -47,10 +47,10 @@ require_once('include/functions.php');
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="artists.php">Artists</a></li>
+              <li><a href="artists.php">Artists</a></li>
               <li><a href="albums.php">Albums</a></li>
               <li><a href="songs.php">Songs</a></li>
-              <li><a href="labels.php">Labels</a></li>
+              <li class="active"><a href="labels.php">Labels</a></li>
               <li><a href="musicians.php">Musicians</a></li>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -58,7 +58,7 @@ require_once('include/functions.php');
 
       <!-- Main component for a primary marketing message or call to action -->
       <div>
-        <h1 class="page-header">Artists</h1>
+        <h1 class="page-header">Labels</h1>
         <h2>Filter</h2>
         <form role="form">
             <div class="form-group">
@@ -75,7 +75,7 @@ require_once('include/functions.php');
             </div>
 
             <div class="form-group">
-                <label for="filterLocation">Location Founded</label>
+                <label for="filterLocation">Location</label>
                 <input type="text" class="form-control" id="filterLocation" placeholder="Enter location">
             </div>
 
@@ -93,7 +93,7 @@ require_once('include/functions.php');
                 <tr>
                     <th>Name</th>
                     <th>Year Founded</th>
-                    <th>Location Founded</th>
+                    <th>Location</th>
                     <th>Website</th>
                     <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
                 </tr>
@@ -101,18 +101,10 @@ require_once('include/functions.php');
 
             <tbody>
                 <tr>
-                    <td><a href="#">Mac DeMarco</a></td>
-                    <td>2009</td>
-                    <td>Edmonton, Alberta</td>
-                    <td><a href="http://www.capturedtracks.com/artists/mac-demarco-2/">http://www.capturedtracks.com/artists/mac-demarco-2/</a></td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
-                </tr>
-                
-                <tr>
-                    <td><a href="#">Girls</a></td>
-                    <td>2007</td>
-                    <td>San Francisco, California</td>
-                    <td><a href="https://www.facebook.com/GIRLSsf">https://www.facebook.com/GIRLSsf</a></td>
+                    <td><a href="#">Merge Records</a></td>
+                    <td>1989</td>
+                    <td>Durham, North Carolina</td>
+                    <td><a href="http://mergerecords.com">http://mergerecords.com</a></td>
                     <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
         </table>

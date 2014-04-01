@@ -47,9 +47,9 @@ require_once('include/functions.php');
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="artists.php">Artists</a></li>
+              <li><a href="artists.php">Artists</a></li>
               <li><a href="albums.php">Albums</a></li>
-              <li><a href="songs.php">Songs</a></li>
+              <li class="active"><a href="songs.php">Songs</a></li>
               <li><a href="labels.php">Labels</a></li>
               <li><a href="musicians.php">Musicians</a></li>
           </div><!--/.nav-collapse -->
@@ -58,30 +58,27 @@ require_once('include/functions.php');
 
       <!-- Main component for a primary marketing message or call to action -->
       <div>
-        <h1 class="page-header">Artists</h1>
+        <h1 class="page-header">Songs</h1>
         <h2>Filter</h2>
         <form role="form">
             <div class="form-group">
-                <label for="filterName">Name</label>
-                <input type="text" class="form-control" id="filterName" placeholder="Enter name">
+                <label for="filterTitle">Title</label>
+                <input type="text" class="form-control" id="filterTitle" placeholder="Enter title">
             </div>
 
             <div class="form-group">
-                <label for="filterYear">Year Founded</label>
-                <select class="form-control" id="filterYear">
-                    <option value="">-----</option>
-                    <?php print_year_options(); ?>
-                </select>
+                <label for="filterAlbum">Album</label>
+                <input type="text" class="form-control" id="filterAlbum" placeholder="Enter album">
             </div>
 
             <div class="form-group">
-                <label for="filterLocation">Location Founded</label>
-                <input type="text" class="form-control" id="filterLocation" placeholder="Enter location">
+                <label for="filterTrackNumber">Track Number</label>
+                <input type="number" class="form-control" id="filterTrackNumber" placeholder="Enter track number" min="0">
             </div>
 
             <div class="form-group">
-                <label for="filterWebsite">Website</label>
-                <input type="text" class="form-control" id="filterWebsite" placeholder="Enter website">
+                <label for="filterDuration">Duration (Seconds)</label>
+                <input type="text" class="form-control" id="filterDuration" placeholder="Enter duration in seconds">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">
@@ -91,28 +88,20 @@ require_once('include/functions.php');
         <table class="table table-striped results">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Year Founded</th>
-                    <th>Location Founded</th>
-                    <th>Website</th>
+                    <th>Track Number</th>
+                    <th>Title</th>
+                    <th>Album</th>
+                    <th>Duration</th>
                     <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <td><a href="#">Mac DeMarco</a></td>
-                    <td>2009</td>
-                    <td>Edmonton, Alberta</td>
-                    <td><a href="http://www.capturedtracks.com/artists/mac-demarco-2/">http://www.capturedtracks.com/artists/mac-demarco-2/</a></td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
-                </tr>
-                
-                <tr>
-                    <td><a href="#">Girls</a></td>
-                    <td>2007</td>
-                    <td>San Francisco, California</td>
-                    <td><a href="https://www.facebook.com/GIRLSsf">https://www.facebook.com/GIRLSsf</a></td>
+                    <td>1</td>
+                    <td>Neighborhood #1 (Tunnels)</td>
+                    <td><a href="#">Funeral</a></td>
+                    <td>4:48</td>
                     <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
         </table>

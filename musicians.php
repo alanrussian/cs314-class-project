@@ -47,18 +47,18 @@ require_once('include/functions.php');
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="artists.php">Artists</a></li>
+              <li><a href="artists.php">Artists</a></li>
               <li><a href="albums.php">Albums</a></li>
               <li><a href="songs.php">Songs</a></li>
               <li><a href="labels.php">Labels</a></li>
-              <li><a href="musicians.php">Musicians</a></li>
+              <li class="active"><a href="musicians.php">Musicians</a></li>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </div>
 
       <!-- Main component for a primary marketing message or call to action -->
       <div>
-        <h1 class="page-header">Artists</h1>
+        <h1 class="page-header">Musicians</h1>
         <h2>Filter</h2>
         <form role="form">
             <div class="form-group">
@@ -67,21 +67,8 @@ require_once('include/functions.php');
             </div>
 
             <div class="form-group">
-                <label for="filterYear">Year Founded</label>
-                <select class="form-control" id="filterYear">
-                    <option value="">-----</option>
-                    <?php print_year_options(); ?>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="filterLocation">Location Founded</label>
-                <input type="text" class="form-control" id="filterLocation" placeholder="Enter location">
-            </div>
-
-            <div class="form-group">
-                <label for="filterWebsite">Website</label>
-                <input type="text" class="form-control" id="filterWebsite" placeholder="Enter website">
+                <label for="filterBirthDate">Birth Date</label>
+                <input type="text" class="form-control" id="filterBirthDate" placeholder="Enter birth date">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">
@@ -92,27 +79,15 @@ require_once('include/functions.php');
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Year Founded</th>
-                    <th>Location Founded</th>
-                    <th>Website</th>
+                    <th>Birth Date</th>
                     <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <td><a href="#">Mac DeMarco</a></td>
-                    <td>2009</td>
-                    <td>Edmonton, Alberta</td>
-                    <td><a href="http://www.capturedtracks.com/artists/mac-demarco-2/">http://www.capturedtracks.com/artists/mac-demarco-2/</a></td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
-                </tr>
-                
-                <tr>
-                    <td><a href="#">Girls</a></td>
-                    <td>2007</td>
-                    <td>San Francisco, California</td>
-                    <td><a href="https://www.facebook.com/GIRLSsf">https://www.facebook.com/GIRLSsf</a></td>
+                    <td><a href="#">Panda Bear</a></td>
+                    <td>July 17, 1978</td>
                     <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
         </table>
