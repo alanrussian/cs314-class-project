@@ -49,7 +49,7 @@ require_once('include/functions.php');
             <ul class="nav navbar-nav">
               <li><a href="artists.php">Artists</a></li>
               <li><a href="albums.php">Albums</a></li>
-              <li class="active"><a href="songs.php">Songs</a></li>
+              <li><a href="songs.php">Songs</a></li>
               <li><a href="labels.php">Labels</a></li>
               <li><a href="musicians.php">Musicians</a></li>
           </div><!--/.nav-collapse -->
@@ -58,53 +58,10 @@ require_once('include/functions.php');
 
       <!-- Main component for a primary marketing message or call to action -->
       <div>
-        <h1 class="page-header">Songs</h1>
-        <h2>Filter</h2>
-        <form role="form">
-            <div class="form-group">
-                <label for="filterTitle">Title</label>
-                <input type="text" class="form-control" id="filterTitle" placeholder="Enter title">
-            </div>
-
-            <div class="form-group">
-                <label for="filterAlbum">Album</label>
-                <input type="text" class="form-control" id="filterAlbum" placeholder="Enter album">
-            </div>
-
-            <div class="form-group">
-                <label for="filterTrackNumber">Track Number</label>
-                <input type="number" class="form-control" id="filterTrackNumber" placeholder="Enter track number" min="0">
-            </div>
-
-            <div class="form-group">
-                <label for="filterDuration">Duration (Seconds)</label>
-                <input type="text" class="form-control" id="filterDuration" placeholder="Enter duration in seconds">
-            </div>
-
-            <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">
-        </form>
-
-        <h2>Results</h2>
-        <table class="table table-striped results">
-            <thead>
-                <tr>
-                    <th>Track Number</th>
-                    <th>Title</th>
-                    <th>Album</th>
-                    <th>Duration</th>
-                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Neighborhood #1 (Tunnels)</td>
-                    <td><a href="album_detail.php?name=Funeral">Funeral</a></td>
-                    <td>4:48</td>
-                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                </tr>
-        </table>
+        <h1 class="page-header">Music Database</h1>
+        <p>How would you like to enter the site?</p>
+        <a href="artists.php?edit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-edit"></span> Editor</a>
+        <a href="artists.php?view" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span> Viewer</a>
       </div>
 
     </div> <!-- /container -->

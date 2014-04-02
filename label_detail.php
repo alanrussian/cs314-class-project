@@ -63,12 +63,12 @@ require_once('include/functions.php');
         <form role="form">
             <div class="form-group">
                 <label for="editName">Name</label>
-                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Merge Records">
+                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Merge Records"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editYear">Year Founded</label>
-                <select class="form-control" id="editYear">
+                <select class="form-control" id="editYear"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option value="">-----</option>
                     <?php print_year_options(1989); ?>
                 </select>
@@ -76,15 +76,15 @@ require_once('include/functions.php');
 
             <div class="form-group">
                 <label for="editLocation">Location</label>
-                <input type="text" class="form-control" id="editLocation" placeholder="Enter location" value="Durham, North Carolina">
+                <input type="text" class="form-control" id="editLocation" placeholder="Enter location" value="Durham, North Carolina"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editWebsite">Website</label>
-                <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="http://mergerecords.com/">
+                <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="http://mergerecords.com/"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values">
+            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
         </form>
 
         <h2>Albums</h2>
@@ -96,7 +96,7 @@ require_once('include/functions.php');
                     <th>Type</th>
                     <th>Genre</th>
                     <th>Release Date</th>
-                    <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
+                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                 </tr>
             </thead>
 
@@ -107,7 +107,7 @@ require_once('include/functions.php');
                     <td>LP</td>
                     <td>Indie Rock</td>
                     <td>May 10, 1998</td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
                 </tr>
         </table>
       </div>

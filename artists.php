@@ -106,7 +106,7 @@ require_once('include/functions.php');
                     <th>Location Founded</th>
                     <th>Year Disbanded</th>
                     <th>Website</th>
-                    <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
+                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th> <?php } ?>
                 </tr>
             </thead>
 
@@ -117,7 +117,7 @@ require_once('include/functions.php');
                     <td>Edmonton, Alberta</td>
                     <td>Still Together</td>
                     <td><a href="http://www.capturedtracks.com/artists/mac-demarco-2/">http://www.capturedtracks.com/artists/mac-demarco-2/</a></td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td> <?php } ?>
                 </tr>
                 
                 <tr>
@@ -126,7 +126,7 @@ require_once('include/functions.php');
                     <td>San Francisco, California</td>
                     <td>2012</td>
                     <td><a href="https://www.facebook.com/GIRLSsf">https://www.facebook.com/GIRLSsf</a></td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td> <?php } ?>
                 </tr>
         </table>
       </div>

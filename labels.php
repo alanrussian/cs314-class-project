@@ -95,7 +95,7 @@ require_once('include/functions.php');
                     <th>Year Founded</th>
                     <th>Location</th>
                     <th>Website</th>
-                    <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
+                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                 </tr>
             </thead>
 
@@ -105,7 +105,7 @@ require_once('include/functions.php');
                     <td>1989</td>
                     <td>Durham, North Carolina</td>
                     <td><a href="http://mergerecords.com">http://mergerecords.com</a></td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
                 </tr>
         </table>
       </div>

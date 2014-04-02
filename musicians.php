@@ -80,7 +80,7 @@ require_once('include/functions.php');
                 <tr>
                     <th>Name</th>
                     <th>Birth Date</th>
-                    <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
+                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                 </tr>
             </thead>
 
@@ -88,7 +88,7 @@ require_once('include/functions.php');
                 <tr>
                     <td><a href="musician_detail.php?name=Panda%20Bear&birthdate=19780617">Panda Bear</a></td>
                     <td>July 17, 1978</td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
                 </tr>
         </table>
       </div>

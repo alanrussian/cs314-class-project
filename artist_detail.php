@@ -63,12 +63,12 @@ require_once('include/functions.php');
         <form role="form">
             <div class="form-group">
                 <label for="editName">Name</label>
-                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Girls">
+                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Girls"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editYearFounded">Year Founded</label>
-                <select class="form-control" id="editYearFounded">
+                <select class="form-control" id="editYearFounded"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option value="">-----</option>
                     <?php print_year_options(2007); ?>
                 </select>
@@ -76,12 +76,12 @@ require_once('include/functions.php');
 
             <div class="form-group">
                 <label for="editLocation">Location Founded</label>
-                <input type="text" class="form-control" id="editLocation" placeholder="Enter location" value="San Francisco, California">
+                <input type="text" class="form-control" id="editLocation" placeholder="Enter location" value="San Francisco, California"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editYearDisbanded">Year Disbanded</label>
-                <select class="form-control" id="editYearDisbanded">
+                <select class="form-control" id="editYearDisbanded"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option value="">-----</option>
                     <option value="NULL">Still Together</option>
                     <?php print_year_options(2012); ?>
@@ -91,10 +91,10 @@ require_once('include/functions.php');
 
             <div class="form-group">
                 <label for="editWebsite">Website</label>
-                <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="https://www.facebook.com/GIRLSsf">
+                <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="https://www.facebook.com/GIRLSsf"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values">
+            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
         </form>
         
         <h2>Albums</h2>
@@ -106,7 +106,7 @@ require_once('include/functions.php');
                     <th>Genre</th>
                     <th>Release Date</th>
                     <th>Label</th>
-                    <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
+                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                 </tr>
             </thead>
 
@@ -117,7 +117,7 @@ require_once('include/functions.php');
                     <td>Indie Rock</td>
                     <td>May 10, 1998</td>
                     <td><a href="label_detail.php?name=Merge%20Records">Merge Records</a></td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
                 </tr>
         </table>
 
@@ -127,7 +127,7 @@ require_once('include/functions.php');
                 <tr>
                     <th>Name</th>
                     <th>Birth Date</th>
-                    <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
+                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                 </tr>
             </thead>
 
@@ -135,7 +135,7 @@ require_once('include/functions.php');
                 <tr>
                     <td><a href="musician_detail.php?name=Panda%20Bear&birthdate=19780617">Panda Bear</a></td>
                     <td>July 17, 1978</td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
                 </tr>
         </table>
       </div>

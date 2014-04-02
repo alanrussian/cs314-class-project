@@ -112,7 +112,7 @@ require_once('include/functions.php');
                     <th>Genre</th>
                     <th>Release Date</th>
                     <th>Label</th>
-                    <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
+                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                 </tr>
             </thead>
 
@@ -124,7 +124,7 @@ require_once('include/functions.php');
                     <td>Indie Rock</td>
                     <td>May 10, 1998</td>
                     <td><a href="labels.php?name=Merge%20Records">Merge Records</a></td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
                 </tr>
         </table>
       </div>

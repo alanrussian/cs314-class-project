@@ -63,12 +63,12 @@ require_once('include/functions.php');
         <form role="form">
             <div class="form-group">
                 <label for="editName">Name</label>
-                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Funeral">
+                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Funeral"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editArtist">Artist</label>
-                <select class="form-control" id="editArtist">
+                <select class="form-control" id="editArtist"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option>-----</option>
                     <option selected="selected">Arcade Fire</option>
                 </select>
@@ -76,7 +76,7 @@ require_once('include/functions.php');
 
             <div class="form-group">
                 <label for="editType">Type</label>
-                <select class="form-control" id="editType">
+                <select class="form-control" id="editType"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option value="LP">LP</option>
                     <option value="EP">EP</option>
                     <option value="Single">Single</option>
@@ -85,7 +85,7 @@ require_once('include/functions.php');
 
             <div class="form-group">
                 <label for="editGenre">Genre</label>
-                <select class="form-control" id="editGenre">
+                <select class="form-control" id="editGenre"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option selected="selected">Indie Rock</option>
                     <!-- Todo: Get from database -->
                 </select>
@@ -93,18 +93,18 @@ require_once('include/functions.php');
 
             <div class="form-group">
                 <label for="editReleaseDate">Relase Date</label>
-                <input type="text" class="form-control" id="editReleaseDate" placeholder="Enter release date" value="January 1, 2004">
+                <input type="text" class="form-control" id="editReleaseDate" placeholder="Enter release date" value="January 1, 2004"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editLabel">Label</label>
-                <select class="form-control" id="editLabel">
+                <select class="form-control" id="editLabel"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option selected="selected">Merge Records</option>
                     <!-- Todo: Get from database -->
                 </select>
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values">
+            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
         </form>
         
         <h2>Songs</h2>
@@ -114,7 +114,7 @@ require_once('include/functions.php');
                     <th>Track Number</th>
                     <th>Title</th>
                     <th>Duration</th>
-                    <th><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th>
+                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                 </tr>
             </thead>
 
@@ -123,7 +123,7 @@ require_once('include/functions.php');
                     <td>1</td>
                     <td>Neighborhood #1 (Tunnels)</td>
                     <td>4:48</td>
-                    <td><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
                 </tr>
         </table>
       </div>
