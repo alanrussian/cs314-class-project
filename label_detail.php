@@ -59,6 +59,34 @@ require_once('include/functions.php');
       <!-- Main component for a primary marketing message or call to action -->
       <div>
         <h1 class="page-header">Label: Merge Records</h1>
+        <h2>Attributes</h2>
+        <form role="form">
+            <div class="form-group">
+                <label for="editName">Name</label>
+                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Merge Records">
+            </div>
+
+            <div class="form-group">
+                <label for="editYear">Year Founded</label>
+                <select class="form-control" id="editYear">
+                    <option value="">-----</option>
+                    <?php print_year_options(1989); ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="editLocation">Location</label>
+                <input type="text" class="form-control" id="editLocation" placeholder="Enter location" value="Durham, North Carolina">
+            </div>
+
+            <div class="form-group">
+                <label for="editWebsite">Website</label>
+                <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="http://mergerecords.com/">
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values">
+        </form>
+
         <h2>Albums</h2>
         <table class="table table-striped results">
             <thead>
