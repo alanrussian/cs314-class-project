@@ -72,6 +72,11 @@ require_once('include/functions.php');
             </div>
 
             <div class="form-group">
+                <label for="filterArtist">Artist</label>
+                <input type="text" class="form-control" id="filterArtist" placeholder="Enter artist">
+            </div>
+
+            <div class="form-group">
                 <label for="filterTrackNumber">Track Number</label>
                 <input type="number" class="form-control" id="filterTrackNumber" placeholder="Enter track number" min="0">
             </div>
@@ -91,6 +96,7 @@ require_once('include/functions.php');
                     <th>Track Number</th>
                     <th>Title</th>
                     <th>Album</th>
+                    <th>Artist</th>
                     <th>Duration</th>
                     <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                 </tr>
@@ -101,6 +107,7 @@ require_once('include/functions.php');
                     <td>1</td>
                     <td>Neighborhood #1 (Tunnels)</td>
                     <td><a href="album_detail.php?name=Funeral">Funeral</a></td>
+                    <td><a href="artist_detail.php?name=Arcade%20Fire">Arcade Fire</a></td>
                     <td>4:48</td>
                     <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
                 </tr>
