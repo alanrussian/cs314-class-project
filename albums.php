@@ -60,24 +60,24 @@ require_once('include/functions.php');
       <div>
         <h1 class="page-header">Albums</h1>
         <h2>Filter</h2>
-        <form role="form">
+        <form role="form" method="get">
             <div class="form-group">
                 <label for="filterName">Name</label>
-                <input type="text" class="form-control" id="filterName" placeholder="Enter name">
+                <input type="text" class="form-control" id="filterName" name="name" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterArtist">Artist</label>
-                <input type="text" class="form-control" id="filterArtist" placeholder="Enter artist">
+                <input type="text" class="form-control" id="filterArtist" name="artist" placeholder="Enter artist" value="<?= get_value('artist') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterType">Type</label>
-                <select class="form-control" id="filterType">
+                <select class="form-control" id="filterType" name="type">
                     <option>-----</option>
-                    <option value="LP">LP</option>
-                    <option value="EP">EP</option>
-                    <option value="Single">Single</option>
+                    <option value="LP"<?= selected_if_get('type', 'LP') ?>>LP</option>
+                    <option value="EP"<?= selected_if_get('type', 'EP') ?>>EP</option>
+                    <option value="Single"<?= selected_if_get('type', 'Single') ?>>Single</option>
                 </select>
             </div>
 
@@ -91,12 +91,12 @@ require_once('include/functions.php');
 
             <div class="form-group">
                 <label for="filterReleaseDate">Relase Date</label>
-                <input type="text" class="form-control" id="filterReleaseDate" placeholder="Enter release date">
+                <input type="text" class="form-control" id="filterReleaseDate" name="releaseDate" placeholder="Enter release date" value="<?= get_value('releaseDate') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterLabel">Label</label>
-                <input type="text" class="form-control" id="filterLabel" placeholder="Enter label">
+                <input type="text" class="form-control" id="filterLabel" name="label" placeholder="Enter label" value="<?= get_value('label') ?>">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">

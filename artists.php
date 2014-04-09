@@ -60,38 +60,38 @@ require_once('include/functions.php');
       <div>
         <h1 class="page-header">Artists</h1>
         <h2>Filter</h2>
-        <form role="form">
+        <form role="form" method="get">
             <div class="form-group">
                 <label for="filterName">Name</label>
-                <input type="text" class="form-control" id="filterName" placeholder="Enter name">
+                <input type="text" class="form-control" id="filterName" name="name" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterYearFounded">Year Founded</label>
-                <select class="form-control" id="filterYearFounded">
+                <select class="form-control" id="filterYearFounded" name="yearFounded">
                     <option value="">-----</option>
-                    <?php print_year_options(); ?>
+                    <?php print_year_options(sanitize_get_value('yearFounded')); ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="filterLocation">Location Founded</label>
-                <input type="text" class="form-control" id="filterLocation" placeholder="Enter location">
+                <input type="text" class="form-control" id="filterLocation" name="locationFounded" placeholder="Enter location" value="<?= get_value('locationFounded') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterYearDisbanded">Year Disbanded</label>
-                <select class="form-control" id="filterYearDisbanded">
+                <select class="form-control" id="filterYearDisbanded" name="yearDisbanded">
                     <option value="">-----</option>
                     <option value="NULL">Still Together</option>
-                    <?php print_year_options(); ?>
+                    <?php print_year_options(sanitize_get_value('yearDisbanded')); ?>
                 </select>
             </div>
 
 
             <div class="form-group">
                 <label for="filterWebsite">Website</label>
-                <input type="text" class="form-control" id="filterWebsite" placeholder="Enter website">
+                <input type="text" class="form-control" id="filterWebsite" name="website" placeholder="Enter website" value="<?= get_value('website') ?>">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">

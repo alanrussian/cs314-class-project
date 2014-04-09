@@ -60,15 +60,15 @@ require_once('include/functions.php');
       <div>
         <h1 class="page-header">Musicians</h1>
         <h2>Filter</h2>
-        <form role="form">
+        <form role="form" method="get">
             <div class="form-group">
                 <label for="filterName">Name</label>
-                <input type="text" class="form-control" id="filterName" placeholder="Enter name">
+                <input type="text" class="form-control" id="filterName" name="name" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterBirthDate">Birth Date</label>
-                <input type="text" class="form-control" id="filterBirthDate" placeholder="Enter birth date">
+                <input type="text" class="form-control" id="filterBirthDate" name="birthDate" placeholder="Enter birth date" value="<?= get_value('birthDate') ?>">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">

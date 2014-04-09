@@ -60,28 +60,28 @@ require_once('include/functions.php');
       <div>
         <h1 class="page-header">Labels</h1>
         <h2>Filter</h2>
-        <form role="form">
+        <form role="form" method="get">
             <div class="form-group">
                 <label for="filterName">Name</label>
-                <input type="text" class="form-control" id="filterName" placeholder="Enter name">
+                <input type="text" class="form-control" id="filterName" name="name" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterYear">Year Founded</label>
-                <select class="form-control" id="filterYear">
+                <select class="form-control" id="filterYear" name="year">
                     <option value="">-----</option>
-                    <?php print_year_options(); ?>
+                    <?php print_year_options(sanitize_get_value('year')); ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="filterLocation">Location</label>
-                <input type="text" class="form-control" id="filterLocation" placeholder="Enter location">
+                <input type="text" class="form-control" id="filterLocation" name="location" placeholder="Enter location" value="<?= get_value('location') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterWebsite">Website</label>
-                <input type="text" class="form-control" id="filterWebsite" placeholder="Enter website">
+                <input type="text" class="form-control" id="filterWebsite" name="website" placeholder="Enter website" value="<?= get_value('website') ?>">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">
