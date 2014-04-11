@@ -2,6 +2,32 @@
 
 require_once('include/functions.php');
 
+$args = array();
+
+
+if(isset($_GET['filterTitle']) && !empty($_GET['filterTitle'])) {
+  $args['title'] = $_GET['filterTitle'];
+}
+
+if(isset($_GET['filterAlbum']) && !empty($_GET['filterAlbum'])) {
+  $args['album'] = $_GET['filterAlbum'];
+}
+
+if(isset($_GET['filterArtist']) && !empty($_GET['filterArtist'])) {
+  $args['artist'] = $_GET['filterArtist'];
+}
+
+if(isset($_GET['filterTrackNumber']) && !empty($_GET['filterTrackNumber'])) {
+  $args['track_number'] = $_GET['filterTrackNumber'];
+}
+
+if(isset($_GET['filterDuration']) && !empty($_GET['filterDuration'])) {
+  $args['duration_seconds'] = $_GET['filterDuration'];
+}
+
+
+$songs = list_results($args, 'Song');
+
 ?>
 
 <!DOCTYPE html>
@@ -63,27 +89,27 @@ require_once('include/functions.php');
         <form role="form">
             <div class="form-group">
                 <label for="filterTitle">Title</label>
-                <input type="text" class="form-control" id="filterTitle" placeholder="Enter title">
+                <input type="text" class="form-control" name="filterTitle" placeholder="Enter title">
             </div>
 
             <div class="form-group">
                 <label for="filterAlbum">Album</label>
-                <input type="text" class="form-control" id="filterAlbum" placeholder="Enter album">
+                <input type="text" class="form-control" name="filterAlbum" placeholder="Enter album">
             </div>
 
             <div class="form-group">
                 <label for="filterArtist">Artist</label>
-                <input type="text" class="form-control" id="filterArtist" placeholder="Enter artist">
+                <input type="text" class="form-control" name="filterArtist" placeholder="Enter artist">
             </div>
 
             <div class="form-group">
                 <label for="filterTrackNumber">Track Number</label>
-                <input type="number" class="form-control" id="filterTrackNumber" placeholder="Enter track number" min="0">
+                <input type="number" class="form-control" name="filterTrackNumber" placeholder="Enter track number" min="0">
             </div>
 
             <div class="form-group">
                 <label for="filterDuration">Duration (Seconds)</label>
-                <input type="text" class="form-control" id="filterDuration" placeholder="Enter duration in seconds">
+                <input type="text" class="form-control" name="filterDuration" placeholder="Enter duration in seconds">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">
@@ -103,14 +129,28 @@ require_once('include/functions.php');
             </thead>
 
             <tbody>
-                <tr>
+              <?php
+
+                while($song = mysqli_fetch_array($songs)) {
+
+              ?>
+                <tr> 
+                  <td><?php echo $song['track_number'] ?> </td>
+                  <td><?php echo $song['title'] ?> </td>
+                  <td><?php echo $song['album'] ?> </td>
+                  <td><?php echo $song['artist'] ?> </td>
+                  <td><?php echo $song['duration_seconds'] ?></td>
+                </tr>
+
+              <?php } ?>
+                <!--<tr>
                     <td>1</td>
                     <td>Neighborhood #1 (Tunnels)</td>
                     <td><a href="album_detail.php?name=Funeral">Funeral</a></td>
                     <td><a href="artist_detail.php?name=Arcade%20Fire">Arcade Fire</a></td>
                     <td>4:48</td>
                     <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                </tr>
+                </tr>-->
         </table>
       </div>
 
