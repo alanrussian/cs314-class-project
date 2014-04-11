@@ -5,24 +5,24 @@ require_once('include/functions.php');
 $args = array();
 
 
-if(isset($_GET['filterName']) && !empty($_GET['filterName'])) {
-  $args['name'] = $_GET['filterName'];
+if(isset($_GET['name']) && !empty($_GET['name'])) {
+  $args['name'] = $_GET['name'];
 }
 
-if(isset($_GET['filterYearFounded']) && !empty($_GET['filterYearFounded'])) {
-  $args['founded_year'] = $_GET['filterYearFounded'];
+if(isset($_GET['yearFounded']) && !empty($_GET['yearFounded'])) {
+  $args['founded_year'] = $_GET['yearFounded'];
 }
 
-if(isset($_GET['filterLocation']) && !empty($_GET['filterLocation'])) {
-  $args['founded_location'] = $_GET['filterLocation'];
+if(isset($_GET['locationFounded']) && !empty($_GET['locationFounded'])) {
+  $args['founded_location'] = $_GET['locationFounded'];
 }
 
-if(isset($_GET['filterYearDisbanded']) && !empty($_GET['filterYearDisbanded'])) {
-  $args['disbanded_year'] = $_GET['filterYearDisbanded'];
+if(isset($_GET['yearDisbanded']) && !empty($_GET['yearDisbanded'])) {
+  $args['disbanded_year'] = $_GET['yearDisbanded'];
 }
 
-if(isset($_GET['filterWebsite']) && !empty($_GET['filterWebsite'])) {
-  $args['website'] = $_GET['filterWebsite'];
+if(isset($_GET['website']) && !empty($_GET['website'])) {
+  $args['website'] = $_GET['website'];
 }
 
 
@@ -89,35 +89,35 @@ $artists = list_results($args, 'Artist');
         <form role="form" method="get">
             <div class="form-group">
                 <label for="filterName">Name</label>
-                <input type="text" class="form-control" name="filterName" placeholder="Enter name">
+                <input type="text" class="form-control" id="filterName" name="name" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterYearFounded">Year Founded</label>
-                <select class="form-control" name="filterYearFounded">
+                <select class="form-control" id="filterYearFounded" name="yearFounded">
                     <option value=""></option>
-                    <?php print_year_options(); ?>
+                    <?php print_year_options(sanitize_get_value('yearFounded')); ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="filterLocation">Location Founded</label>
-                <input type="text" class="form-control" name="filterLocation" placeholder="Enter location">
+                <input type="text" class="form-control" id="filterLocation" name="locationFounded" placeholder="Enter location" value="<?= get_value('locationFounded') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterYearDisbanded">Year Disbanded</label>
-                <select class="form-control" name="filterYearDisbanded">
+                <select class="form-control" id="filterYearDisbanded" name="yearDisbanded">
                     <option value=""></option>
                     <option value="NULL">Still Together</option>
-                    <?php print_year_options(); ?>
+                    <?php print_year_options(sanitize_get_value('yearDisbanded')); ?>
                 </select>
             </div>
 
 
             <div class="form-group">
                 <label for="filterWebsite">Website</label>
-                <input type="text" class="form-control" name="filterWebsite" placeholder="Enter website">
+                <input type="text" class="form-control" id="filterWebsite" name="website" placeholder="Enter website" value="<?= get_value('website') ?>">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">

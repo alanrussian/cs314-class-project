@@ -5,20 +5,20 @@ require_once('include/functions.php');
 $args = array();
 
 
-if(isset($_GET['filterName']) && !empty($_GET['filterName'])) {
-  $args['name'] = $_GET['filterName'];
+if(isset($_GET['name']) && !empty($_GET['name'])) {
+  $args['name'] = $_GET['name'];
 }
 
-if(isset($_GET['filterYear']) && !empty($_GET['filterYear'])) {
-  $args['founded_year'] = $_GET['filterAlbum'];
+if(isset($_GET['year']) && !empty($_GET['year'])) {
+  $args['founded_year'] = $_GET['year'];
 }
 
-if(isset($_GET['filterLocation']) && !empty($_GET['filterLocation'])) {
-  $args['location'] = $_GET['filterLocation'];
+if(isset($_GET['location']) && !empty($_GET['location'])) {
+  $args['location'] = $_GET['location'];
 }
 
-if(isset($_GET['filterWebsite']) && !empty($_GET['filterWebsite'])) {
-  $args['website'] = $_GET['filterWebsite'];
+if(isset($_GET['website']) && !empty($_GET['website'])) {
+  $args['website'] = $_GET['website'];
 }
 
 $labels = list_results($args, 'Label');
@@ -81,28 +81,28 @@ $labels = list_results($args, 'Label');
       <div>
         <h1 class="page-header">Labels</h1>
         <h2>Filter</h2>
-        <form role="form">
+        <form role="form" method="get">
             <div class="form-group">
                 <label for="filterName">Name</label>
-                <input type="text" class="form-control" name="filterName" placeholder="Enter name">
+                <input type="text" class="form-control" id="filterName" name="name" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterYear">Year Founded</label>
-                <select class="form-control" name="filterYear">
+                <select class="form-control" id="filterYear" name="year">
                     <option value="">-----</option>
-                    <?php print_year_options(); ?>
+                    <?php print_year_options(sanitize_get_value('year')); ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="filterLocation">Location</label>
-                <input type="text" class="form-control" name="filterLocation" placeholder="Enter location">
+                <input type="text" class="form-control" id="filterLocation" name="location" placeholder="Enter location" value="<?= get_value('location') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterWebsite">Website</label>
-                <input type="text" class="form-control" name="filterWebsite" placeholder="Enter website">
+                <input type="text" class="form-control" id="filterWebsite" name="website" placeholder="Enter website" value="<?= get_value('website') ?>">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">

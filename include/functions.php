@@ -34,7 +34,6 @@ function has_permissions() {
     return isset($_SESSION['editing']);
 }
 
-
 function list_results($args, $table) {
   
   $con=mysqli_connect(HOST, USER, PASS, DB);
@@ -60,6 +59,57 @@ function list_results($args, $table) {
 
 function add_to_table($args, $table) {
     
+}
+
+function selected_if_get($parameter, $value) {
+    return sanitize_get_value($parameter) == $value ? ' selected="selected"' : '';
+}
+
+function selected_if_post($parameter, $value) {
+    return sanitize_post_value($parameter) == $value ? ' selected="selected"' : '';
+}
+
+function get_value($parameter) {
+    $value = sanitize_get_value($parameter);
+
+    if ($value === NULL) {
+        return '';
+    } else {
+        return htmlentities($_GET[$parameter]);
+    }
+}
+
+function post_value($parameter) {
+    $value = sanitize_post_value($parameter);
+
+    if ($value === NULL) {
+        return '';
+    } else {
+        return htmlentities($_GET[$paramete]);
+    }
+}
+
+function sanitize_get_value($parameter) {
+    return _value('get', $parameter);
+}
+
+function sanitize_post_value($parameter) {
+    return _value('post', $paremter);
+}
+
+function _value($method, $parameter) {
+    $array = array();
+    if ($method === 'get') {
+        $array = $_GET;
+    } else if ($method == 'post') {
+        $array = $_POST;
+    }
+
+    if (isset($array[$parameter])) {
+        return trim($array[$parameter]);
+    } else {
+        return NULL;
+    }
 }
 
 ?>

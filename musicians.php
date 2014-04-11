@@ -5,16 +5,16 @@ require_once('include/functions.php');
 $args = array();
 
 
-if(isset($_GET['filterArtist']) && !empty($_GET['filterArtist'])) {
-  $args['artist'] = $_GET['filterArtist'];
+if(isset($_GET['artist']) && !empty($_GET['artist'])) {
+  $args['artist'] = $_GET['artist'];
 }
 
-if(isset($_GET['filterName']) && !empty($_GET['filterName'])) {
-  $args['musician_name'] = $_GET['filterName'];
+if(isset($_GET['name']) && !empty($_GET['name'])) {
+  $args['musician_name'] = $_GET['name'];
 }
 
-if(isset($_GET['filterBirthDate']) && !empty($_GET['filterBirthDate'])) {
-  $args['musician_birth_date'] = $_GET['filterBirthDate'];
+if(isset($_GET['birthDate']) && !empty($_GET['birthDate'])) {
+  $args['musician_birth_date'] = $_GET['birthDate'];
 }
 
 $musicians = list_results($args, 'ArtistMusician');
@@ -77,20 +77,20 @@ $musicians = list_results($args, 'ArtistMusician');
       <div>
         <h1 class="page-header">Musicians</h1>
         <h2>Filter</h2>
-        <form role="form">
+        <form role="form" method="get">
             <div class="form-group">
                 <label for="filterName">Artist</label>
-                <input type="text" class="form-control" name="filterArtist" placeholder="Enter name">
+                <input type="text" class="form-control" id="filterArtist "name="artist" placeholder="Enter name">
             </div>
 
             <div class="form-group">
                 <label for="filterName">Name</label>
-                <input type="text" class="form-control" name="filterName" placeholder="Enter name">
+                <input type="text" class="form-control" id="filterName" name="name" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterBirthDate">Birth Date</label>
-                <input type="text" class="form-control" name="filterBirthDate" placeholder="Enter birth date">
+                <input type="text" class="form-control" id="filterBirthDate" name="birthDate" placeholder="Enter birth date" value="<?= get_value('birthDate') ?>">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">

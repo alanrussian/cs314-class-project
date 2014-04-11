@@ -1,33 +1,32 @@
 <?php
 
 require_once('include/functions.php');
-require_once('include/album_functions.php');
 
 $args = array();
 
 
-if(isset($_GET['filterName']) && !empty($_GET['filterName'])) {
-  $args['name'] = $_GET['filterName'];
+if(isset($_GET['name1']) && !empty($_GET['name1'])) {
+  $args['name'] = $_GET['name1'];
 }
 
-if(isset($_GET['filterArtist']) && !empty($_GET['filterArtist'])) {
-  $args['artist'] = $_GET['filterArtist'];
+if(isset($_GET['artist']) && !empty($_GET['artist'])) {
+  $args['artist'] = $_GET['artist'];
 }
 
-if(isset($_GET['filterType']) && !empty($_GET['filterType'])) {
-  $args['type'] = $_GET['filterType'];
+if(isset($_GET['type']) && !empty($_GET['type'])) {
+  $args['type'] = $_GET['type'];
 }
 
-if(isset($_GET['filterGenre']) && !empty($_GET['filterGenre'])) {
-  $args['genre'] = $_GET['filterGenre'];
+if(isset($_GET['genre']) && !empty($_GET['genre'])) {
+  $args['genre'] = $_GET['genre'];
 }
 
-if(isset($_GET['filterReleaseDate']) && !empty($_GET['filterReleaseDate'])) {
-  $args['release_date'] = $_GET['filterReleaseDate'];
+if(isset($_GET['releaseDate']) && !empty($_GET['releaseDate'])) {
+  $args['release_date'] = $_GET['releaseDate'];
 }
 
-if(isset($_GET['filterLabel']) && !empty($_GET['filterLabel'])) {
-  $args['label'] = $_GET['filterLabel'];
+if(isset($_GET['label']) && !empty($_GET['label'])) {
+  $args['label'] = $_GET['label'];
 }
 
 $albums = list_results($args, 'Album');
@@ -93,27 +92,27 @@ $albums = list_results($args, 'Album');
         <form role="form" method="get">
             <div class="form-group">
                 <label for="filterName">Name</label>
-                <input type="text" class="form-control" name="filterName" placeholder="Enter name">
+                <input type="text" class="form-control" id="filterName" name="name1" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterArtist">Artist</label>
-                <input type="text" class="form-control" name="filterArtist" placeholder="Enter artist">
+                <input type="text" class="form-control" id="filterArtist" name="artist" placeholder="Enter artist" value="<?= get_value('artist') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterType">Type</label>
-                <select class="form-control" name="filterType">
+                <select class="form-control" id="filterType" name="type">
                     <option></option>
-                    <option value="LP">LP</option>
-                    <option value="EP">EP</option>
-                    <option value="Single">Single</option>
+                    <option value="LP"<?= selected_if_get('type', 'LP') ?>>LP</option>
+                    <option value="EP"<?= selected_if_get('type', 'EP') ?>>EP</option>
+                    <option value="Single"<?= selected_if_get('type', 'Single') ?>>Single</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="filterGenre">Genre</label>
-                <select class="form-control" name="filterGenre">
+                <select class="form-control" id="filterGenre" name="genre">
                     <option></option>
                     <!-- Todo: Get from database -->
                 </select>
@@ -121,12 +120,12 @@ $albums = list_results($args, 'Album');
 
             <div class="form-group">
                 <label for="filterReleaseDate">Relase Date</label>
-                <input type="text" class="form-control" name="filterReleaseDate" placeholder="Enter release date">
+                <input type="text" class="form-control" id="filterReleaseDate" name="releaseDate" placeholder="Enter release date" value="<?= get_value('releaseDate') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterLabel">Label</label>
-                <input type="text" class="form-control" name="filterLabel" placeholder="Enter label">
+                <input type="text" class="form-control" id="filterLabel" name="label" placeholder="Enter label" value="<?= get_value('label') ?>">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">
