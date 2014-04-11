@@ -1,4 +1,7 @@
 <?php
+
+require_once('credentials.php');
+
 define('START_YEAR', 1900);
 define('END_YEAR_OFFSET', 1); // e.g., 1 = current year + 1
 
@@ -30,3 +33,33 @@ function check_permissions_request() {
 function has_permissions() {
     return isset($_SESSION['editing']);
 }
+
+
+function list_results($args, $table) {
+  
+  $con=mysqli_connect(HOST, USER, PASS, DB);
+  
+  $query = 'select * from ' . $table;
+
+  $filters = array();
+
+  foreach($args as $key => $value) {  
+    $filters[] = "$key = '$value'";
+  }
+
+  if(sizeof($filters) > 0) {
+    $query .= ' where ' . implode(' and ', $filters);
+  }
+
+  $results = mysqli_query($con, $query) or die('Query failed: ' . mysql_error());
+
+  mysqli_close($con);
+
+  return $results;  
+}
+
+function add_to_table($args, $table) {
+    
+}
+
+?>

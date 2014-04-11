@@ -2,6 +2,32 @@
 
 require_once('include/functions.php');
 
+$args = array();
+
+
+if(isset($_GET['filterName']) && !empty($_GET['filterName'])) {
+  $args['name'] = $_GET['filterName'];
+}
+
+if(isset($_GET['filterYearFounded']) && !empty($_GET['filterYearFounded'])) {
+  $args['founded_year'] = $_GET['filterYearFounded'];
+}
+
+if(isset($_GET['filterLocation']) && !empty($_GET['filterLocation'])) {
+  $args['founded_location'] = $_GET['filterLocation'];
+}
+
+if(isset($_GET['filterYearDisbanded']) && !empty($_GET['filterYearDisbanded'])) {
+  $args['disbanded_year'] = $_GET['filterYearDisbanded'];
+}
+
+if(isset($_GET['filterWebsite']) && !empty($_GET['filterWebsite'])) {
+  $args['website'] = $_GET['filterWebsite'];
+}
+
+
+$artists = list_results($args, 'Artist');
+
 ?>
 
 <!DOCTYPE html>
@@ -60,29 +86,29 @@ require_once('include/functions.php');
       <div>
         <h1 class="page-header">Artists</h1>
         <h2>Filter</h2>
-        <form role="form">
+        <form role="form" method="get">
             <div class="form-group">
                 <label for="filterName">Name</label>
-                <input type="text" class="form-control" id="filterName" placeholder="Enter name">
+                <input type="text" class="form-control" name="filterName" placeholder="Enter name">
             </div>
 
             <div class="form-group">
                 <label for="filterYearFounded">Year Founded</label>
-                <select class="form-control" id="filterYearFounded">
-                    <option value="">-----</option>
+                <select class="form-control" name="filterYearFounded">
+                    <option value=""></option>
                     <?php print_year_options(); ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="filterLocation">Location Founded</label>
-                <input type="text" class="form-control" id="filterLocation" placeholder="Enter location">
+                <input type="text" class="form-control" name="filterLocation" placeholder="Enter location">
             </div>
 
             <div class="form-group">
                 <label for="filterYearDisbanded">Year Disbanded</label>
-                <select class="form-control" id="filterYearDisbanded">
-                    <option value="">-----</option>
+                <select class="form-control" name="filterYearDisbanded">
+                    <option value=""></option>
                     <option value="NULL">Still Together</option>
                     <?php print_year_options(); ?>
                 </select>
@@ -91,7 +117,7 @@ require_once('include/functions.php');
 
             <div class="form-group">
                 <label for="filterWebsite">Website</label>
-                <input type="text" class="form-control" id="filterWebsite" placeholder="Enter website">
+                <input type="text" class="form-control" name="filterWebsite" placeholder="Enter website">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">
@@ -111,7 +137,22 @@ require_once('include/functions.php');
             </thead>
 
             <tbody>
-                <tr>
+              <?php
+
+                while($artist = mysqli_fetch_array($artists)) {
+
+              ?>
+                <tr> 
+                  <td><?php echo $artist['name'] ?> </td>
+                  <td><?php echo $artist['founded_year'] ?> </td>
+                  <td><?php echo $artist['founded_location'] ?> </td>
+                  <td><?php echo $artist['disbanded_year'] ?> </td>
+                  <td><a href="http://<?php echo $artist['website'] ?>"><?php echo $artist['website'] ?></a> </td>
+                </tr>
+
+              <?php } ?>
+
+                <!--<tr>
                     <td><a href="artist_detail.php?name=Mac%20DeMarco">Mac DeMarco</a></td>
                     <td>2009</td>
                     <td>Edmonton, Alberta</td>
@@ -119,6 +160,8 @@ require_once('include/functions.php');
                     <td><a href="http://www.capturedtracks.com/artists/mac-demarco-2/">http://www.capturedtracks.com/artists/mac-demarco-2/</a></td>
                     <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td> <?php } ?>
                 </tr>
+
+
                 
                 <tr>
                     <td><a href="artist_detail.php?name=Girls">Girls</a></td>
@@ -127,7 +170,7 @@ require_once('include/functions.php');
                     <td>2012</td>
                     <td><a href="https://www.facebook.com/GIRLSsf">https://www.facebook.com/GIRLSsf</a></td>
                     <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td> <?php } ?>
-                </tr>
+                </tr>-->
         </table>
       </div>
 
