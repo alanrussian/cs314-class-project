@@ -2,35 +2,6 @@
 
 require_once('include/functions.php');
 
-$args = array();
-
-
-if(isset($_GET['name1']) && !empty($_GET['name1'])) {
-  $args['name'] = $_GET['name1'];
-}
-
-if(isset($_GET['artist']) && !empty($_GET['artist'])) {
-  $args['artist'] = $_GET['artist'];
-}
-
-if(isset($_GET['type']) && !empty($_GET['type'])) {
-  $args['type'] = $_GET['type'];
-}
-
-if(isset($_GET['genre']) && !empty($_GET['genre'])) {
-  $args['genre'] = $_GET['genre'];
-}
-
-if(isset($_GET['releaseDate']) && !empty($_GET['releaseDate'])) {
-  $args['release_date'] = $_GET['releaseDate'];
-}
-
-if(isset($_GET['label']) && !empty($_GET['label'])) {
-  $args['label'] = $_GET['label'];
-}
-
-$albums = list_results($args, 'Album');
-
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +63,7 @@ $albums = list_results($args, 'Album');
         <form role="form" method="get">
             <div class="form-group">
                 <label for="filterName">Name</label>
-                <input type="text" class="form-control" id="filterName" name="name1" placeholder="Enter name" value="<?= get_value('name') ?>">
+                <input type="text" class="form-control" id="filterName" name="name" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
 
             <div class="form-group">
@@ -103,7 +74,7 @@ $albums = list_results($args, 'Album');
             <div class="form-group">
                 <label for="filterType">Type</label>
                 <select class="form-control" id="filterType" name="type">
-                    <option></option>
+                    <option>-----</option>
                     <option value="LP"<?= selected_if_get('type', 'LP') ?>>LP</option>
                     <option value="EP"<?= selected_if_get('type', 'EP') ?>>EP</option>
                     <option value="Single"<?= selected_if_get('type', 'Single') ?>>Single</option>
@@ -112,8 +83,8 @@ $albums = list_results($args, 'Album');
 
             <div class="form-group">
                 <label for="filterGenre">Genre</label>
-                <select class="form-control" id="filterGenre" name="genre">
-                    <option></option>
+                <select class="form-control" id="filterGenre">
+                    <option>-----</option>
                     <!-- Todo: Get from database -->
                 </select>
             </div>
@@ -147,30 +118,34 @@ $albums = list_results($args, 'Album');
 
             <tbody>
                 <?php
+                    // Set up filter
+                    $filter = array(
+                        'name' => sanitize_get_value('name'),
+                        'artist' => sanitize_get_value('artist'),
+                        'type' => sanitize_get_value('type'),
+                        'genre' => sanitize_get_value('genre'),
+                        'release_date' => sanitize_get_value('releaseDate'),
+                        'label' => sanitize_get_value('label')
+                    );
+                    
+                    // Print Results
+                    $results = list_results($filter, 'Album');
 
-                while($album = mysqli_fetch_array($albums)) {
-
+                    foreach ($results as $result) {
                 ?>
-                  <tr> 
-                    <td><?php echo $album['name'] ?> </td>
-                    <td><?php echo $album['artist'] ?> </td>
-                    <td><?php echo $album['type'] ?> </td>
-                    <td><?php echo $album['genre'] ?> </td>
-                    <td><?php echo $album['release_date'] ?> </td>
-                    <td><?php echo $album['label'] ?> </td>
-                  </tr>
-
-                <?php } ?>
-                <!--<tr>
-                    <td><a href="album_detail.php?name=In%20The%20Aeroplane%20over%20the%20Sea">In the Aeroplane over the Sea</a></td>
-                    <td><a href="artist_detail.php?name=Neutral%20Milk%20Hotel">Neutral Milk Hotel</a></td>
-                    <td>LP</td>
-                    <td>Indie Rock</td>
-                    <td>May 10, 1998</td>
-                    <td><a href="labels.php?name=Merge%20Records">Merge Records</a></td>
-                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                </tr>-->
-
+                    <tr>
+                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                        <td><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
+                        <td><?= htmlentities($result['type']) ?></td>
+                        <td><?= htmlentities($result['genre']) ?></td>
+                        <td><?= htmlentities($result['release_date']) ?></td>
+                        <td><a href="labels.php?name=<?= urlencode($result['label']) ?>"><?= htmlentities($result['label']) ?></a></td>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                    </tr>
+                <?php
+                    }
+                ?>
+            </tbody>
         </table>
       </div>
 

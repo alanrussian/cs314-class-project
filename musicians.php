@@ -2,23 +2,6 @@
 
 require_once('include/functions.php');
 
-$args = array();
-
-
-if(isset($_GET['artist']) && !empty($_GET['artist'])) {
-  $args['artist'] = $_GET['artist'];
-}
-
-if(isset($_GET['name']) && !empty($_GET['name'])) {
-  $args['musician_name'] = $_GET['name'];
-}
-
-if(isset($_GET['birthDate']) && !empty($_GET['birthDate'])) {
-  $args['musician_birth_date'] = $_GET['birthDate'];
-}
-
-$musicians = list_results($args, 'ArtistMusician');
-
 ?>
 
 <!DOCTYPE html>
@@ -79,11 +62,6 @@ $musicians = list_results($args, 'ArtistMusician');
         <h2>Filter</h2>
         <form role="form" method="get">
             <div class="form-group">
-                <label for="filterName">Artist</label>
-                <input type="text" class="form-control" id="filterArtist "name="artist" placeholder="Enter name">
-            </div>
-
-            <div class="form-group">
                 <label for="filterName">Name</label>
                 <input type="text" class="form-control" id="filterName" name="name" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
@@ -102,29 +80,32 @@ $musicians = list_results($args, 'ArtistMusician');
                 <tr>
                     <th>Name</th>
                     <th>Birth Date</th>
-                    <th>Artist</th>
                     <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                 </tr>
             </thead>
 
             <tbody>
-              <?php
+                <?php
+                    // Set up filter
+                    $filter = array(
+                        'name' => sanitize_get_value('name'),
+                        'birth_date' => sanitize_get_value('birthDate')
+                    );
+                    
+                    // Print Results
+                    $results = list_results($filter, 'Musician');
 
-                while($musician = mysqli_fetch_array($musicians)) {
-
-              ?>
-                <tr> 
-                  <td><?php echo $musician['musician_name'] ?> </td>
-                  <td><?php echo $musician['musician_birth_date'] ?> </td>
-                  <td><?php echo $musician['artist'] ?> </td>
-                </tr>
-
-              <?php } ?>
-                <!--<tr>
-                    <td><a href="musician_detail.php?name=Panda%20Bear&birthdate=19780617">Panda Bear</a></td>
-                    <td>July 17, 1978</td>
-                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                </tr>-->
+                    foreach ($results as $result) {
+                ?>
+                    <tr>
+                    <td><a href="musician_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                    <td><?= urlencode($result['birth_date']) ?></td>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                    </tr>
+                <?php
+                    }
+                ?>
+            </tbody>
         </table>
       </div>
 

@@ -2,32 +2,6 @@
 
 require_once('include/functions.php');
 
-$args = array();
-
-
-if(isset($_GET['name']) && !empty($_GET['name'])) {
-  $args['name'] = $_GET['name'];
-}
-
-if(isset($_GET['yearFounded']) && !empty($_GET['yearFounded'])) {
-  $args['founded_year'] = $_GET['yearFounded'];
-}
-
-if(isset($_GET['locationFounded']) && !empty($_GET['locationFounded'])) {
-  $args['founded_location'] = $_GET['locationFounded'];
-}
-
-if(isset($_GET['yearDisbanded']) && !empty($_GET['yearDisbanded'])) {
-  $args['disbanded_year'] = $_GET['yearDisbanded'];
-}
-
-if(isset($_GET['website']) && !empty($_GET['website'])) {
-  $args['website'] = $_GET['website'];
-}
-
-
-$artists = list_results($args, 'Artist');
-
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +69,7 @@ $artists = list_results($args, 'Artist');
             <div class="form-group">
                 <label for="filterYearFounded">Year Founded</label>
                 <select class="form-control" id="filterYearFounded" name="yearFounded">
-                    <option value=""></option>
+                    <option value="">-----</option>
                     <?php print_year_options(sanitize_get_value('yearFounded')); ?>
                 </select>
             </div>
@@ -108,7 +82,7 @@ $artists = list_results($args, 'Artist');
             <div class="form-group">
                 <label for="filterYearDisbanded">Year Disbanded</label>
                 <select class="form-control" id="filterYearDisbanded" name="yearDisbanded">
-                    <option value=""></option>
+                    <option value="">-----</option>
                     <option value="NULL">Still Together</option>
                     <?php print_year_options(sanitize_get_value('yearDisbanded')); ?>
                 </select>
@@ -137,40 +111,33 @@ $artists = list_results($args, 'Artist');
             </thead>
 
             <tbody>
-              <?php
+                <?php
+                    // Set up filter
+                    $filter = array(
+                        'name' => sanitize_get_value('name'),
+                        'founded_year' => sanitize_get_value('yearFounded'),
+                        'founded_location' => sanitize_get_value('locationFounded'),
+                        'disbanded_year' => sanitize_get_value('yearDisbanded'),
+                        'website' => sanitize_get_value('website')
+                    );
+                    
+                    // Print Results
+                    $results = list_results($filter, 'Artist');
 
-                while($artist = mysqli_fetch_array($artists)) {
-
-              ?>
-                <tr> 
-                  <td><?php echo $artist['name'] ?> </td>
-                  <td><?php echo $artist['founded_year'] ?> </td>
-                  <td><?php echo $artist['founded_location'] ?> </td>
-                  <td><?php echo $artist['disbanded_year'] ?> </td>
-                  <td><a href="http://<?php echo $artist['website'] ?>"><?php echo $artist['website'] ?></a> </td>
-                </tr>
-
-              <?php } ?>
-
-                <!--<tr>
-                    <td><a href="artist_detail.php?name=Mac%20DeMarco">Mac DeMarco</a></td>
-                    <td>2009</td>
-                    <td>Edmonton, Alberta</td>
-                    <td>Still Together</td>
-                    <td><a href="http://www.capturedtracks.com/artists/mac-demarco-2/">http://www.capturedtracks.com/artists/mac-demarco-2/</a></td>
-                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td> <?php } ?>
-                </tr>
-
-
-                
-                <tr>
-                    <td><a href="artist_detail.php?name=Girls">Girls</a></td>
-                    <td>2007</td>
-                    <td>San Francisco, California</td>
-                    <td>2012</td>
-                    <td><a href="https://www.facebook.com/GIRLSsf">https://www.facebook.com/GIRLSsf</a></td>
-                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td> <?php } ?>
-                </tr>-->
+                    foreach ($results as $result) {
+                ?>
+                    <tr>
+                        <td><a href="artist_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                        <td><?= htmlentities($result['founded_year']) ?></td>
+                        <td><?= htmlentities($result['founded_location']) ?></td>
+                        <td><?= htmlentities($result['disbanded_year']) ?></td>
+                        <td><a href="<?= htmlentities($result['website']) ?>"><?= htmlentities($result['website']) ?></a></td>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td> <?php } ?>
+                    </tr>
+                <?php
+                    }
+                ?>
+            </tbody>
         </table>
       </div>
 

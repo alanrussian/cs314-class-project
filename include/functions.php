@@ -43,18 +43,26 @@ function list_results($args, $table) {
   $filters = array();
 
   foreach($args as $key => $value) {  
-    $filters[] = "$key = '$value'";
+    if ($value !== NULL) {
+      $filters[] = "$key = '$value'";
+    }
   }
 
   if(sizeof($filters) > 0) {
     $query .= ' where ' . implode(' and ', $filters);
   }
 
-  $results = mysqli_query($con, $query) or die('Query failed: ' . mysql_error());
+  $results = mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
+
+  // Convert to array of results
+  $resultsArray = array();
+  while ($row = mysqli_fetch_array($results)) {
+      $resultsArray[] = $row;
+  }
 
   mysqli_close($con);
 
-  return $results;  
+  return $resultsArray;  
 }
 
 function add_to_table($args, $table) {
@@ -106,7 +114,13 @@ function _value($method, $parameter) {
     }
 
     if (isset($array[$parameter])) {
-        return trim($array[$parameter]);
+        $value = trim($array[$parameter]);
+
+        if (empty($value)) {
+            return NULL;
+        } else {
+            return $value;
+        }
     } else {
         return NULL;
     }

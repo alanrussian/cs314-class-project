@@ -2,27 +2,6 @@
 
 require_once('include/functions.php');
 
-$args = array();
-
-
-if(isset($_GET['name']) && !empty($_GET['name'])) {
-  $args['name'] = $_GET['name'];
-}
-
-if(isset($_GET['year']) && !empty($_GET['year'])) {
-  $args['founded_year'] = $_GET['year'];
-}
-
-if(isset($_GET['location']) && !empty($_GET['location'])) {
-  $args['location'] = $_GET['location'];
-}
-
-if(isset($_GET['website']) && !empty($_GET['website'])) {
-  $args['website'] = $_GET['website'];
-}
-
-$labels = list_results($args, 'Label');
-
 ?>
 
 <!DOCTYPE html>
@@ -121,26 +100,31 @@ $labels = list_results($args, 'Label');
             </thead>
 
             <tbody>
-              <?php
-                
-                while($label = mysqli_fetch_array($labels)) {
+                <?php
+                    // Set up filter
+                    $filter = array(
+                        'name' => sanitize_get_value('name'),
+                        'founded_year' => sanitize_get_value('year'),
+                        'location' => sanitize_get_value('location'),
+                        'website' => sanitize_get_value('website'),
+                    );
+                    
+                    // Print Results
+                    $results = list_results($filter, 'Label');
 
-              ?>
-                <tr> 
-                  <td><?php echo $label['name'] ?> </td>
-                  <td><?php echo $label['founded_year'] ?> </td>
-                  <td><?php echo $label['location'] ?> </td>
-                  <td><a href="http://<?php echo $label['website'] ?>"><?php echo $label['website'] ?></a> </td>
-                </tr>
-
-              <?php } ?>
-                <!--<tr>
-                    <td><a href="label_detail.php?name=Merge%20Records">Merge Records</a></td>
-                    <td>1989</td>
-                    <td>Durham, North Carolina</td>
-                    <td><a href="http://mergerecords.com">http://mergerecords.com</a></td>
-                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                </tr>-->
+                    foreach ($results as $result) {
+                ?>
+                    <tr>
+                        <td><a href="label_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                        <td><?= $result['founded_year'] ?></td>
+                        <td><?= htmlentities($result['location']) ?></td>
+                        <td><a href="<?= htmlentities($result['website']) ?>"><?= htmlentities($result['website']) ?></a></td>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                    </tr>
+                <?php
+                    }
+                ?>
+            </tbody>
         </table>
       </div>
 
