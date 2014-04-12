@@ -89,27 +89,27 @@ $songs = list_results($args, 'Song');
         <form role="form">
             <div class="form-group">
                 <label for="filterTitle">Title</label>
-                <input type="text" class="form-control" name="filterTitle" placeholder="Enter title">
+                <input type="text" class="form-control" id="filterTitle" name="title" placeholder="Enter title" value="<?= get_value('title') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterAlbum">Album</label>
-                <input type="text" class="form-control" name="filterAlbum" placeholder="Enter album">
+                <input type="text" class="form-control" id="filterAlbum" name="album" placeholder="Enter album" value="<?= get_value('album') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterArtist">Artist</label>
-                <input type="text" class="form-control" name="filterArtist" placeholder="Enter artist">
+                <input type="text" class="form-control" id="filterArtist" name="artist" placeholder="Enter artist" value="<?= get_value('artist') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterTrackNumber">Track Number</label>
-                <input type="number" class="form-control" name="filterTrackNumber" placeholder="Enter track number" min="0">
+                <input type="number" class="form-control" id="filterTrackNumber" name="trackNumber" placeholder="Enter track number" min="0" value="<?= get_value('trackNumber') ?>">
             </div>
 
             <div class="form-group">
                 <label for="filterDuration">Duration (Seconds)</label>
-                <input type="text" class="form-control" name="filterDuration" placeholder="Enter duration in seconds">
+                <input type="text" class="form-control" id="filterDuration" name="durationSeconds" placeholder="Enter duration in seconds" value="<?= get_value('durationSeconds') ?>">
             </div>
 
             <input type="submit" class="btn btn-primary" value="Filter Results"> <input type="reset" class="btn btn-default" value="Clear Filters">
