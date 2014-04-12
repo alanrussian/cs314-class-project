@@ -65,6 +65,12 @@ function list_results($args, $table) {
   return $resultsArray;  
 }
 
+function get_one($args, $table) {
+    $results = list_results($args, $table);
+
+    return $results[0];
+}
+
 function add_to_table($args, $table) {
     
 }

@@ -74,7 +74,7 @@ require_once('include/functions.php');
             <div class="form-group">
                 <label for="filterType">Type</label>
                 <select class="form-control" id="filterType" name="type">
-                    <option>-----</option>
+                    <option value="">-----</option>
                     <option value="LP"<?= selected_if_get('type', 'LP') ?>>LP</option>
                     <option value="EP"<?= selected_if_get('type', 'EP') ?>>EP</option>
                     <option value="Single"<?= selected_if_get('type', 'Single') ?>>Single</option>
@@ -84,7 +84,7 @@ require_once('include/functions.php');
             <div class="form-group">
                 <label for="filterGenre">Genre</label>
                 <select class="form-control" id="filterGenre">
-                    <option>-----</option>
+                    <option value="">-----</option>
                     <!-- Todo: Get from database -->
                 </select>
             </div>
