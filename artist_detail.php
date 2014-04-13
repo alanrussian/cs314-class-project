@@ -128,7 +128,7 @@ $details = get_one($args, 'Artist');
                     foreach ($results as $result) {
                 ?>
                     <tr>
-                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>&artist=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['name']) ?></a></td>
                         <td><?= htmlentities($result['type']) ?></td>
                         <td><?= htmlentities($result['genre']) ?></td>
                         <td><?= htmlentities($result['release_date']) ?></td>
