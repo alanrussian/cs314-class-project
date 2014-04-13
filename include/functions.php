@@ -154,14 +154,14 @@ function sanitize_get_value($parameter) {
 }
 
 function sanitize_post_value($parameter) {
-    return _value('post', $paremter);
+    return _value('post', $parameter);
 }
 
 function _value($method, $parameter) {
     $array = array();
     if ($method === 'get') {
         $array = $_GET;
-    } else if ($method == 'post') {
+    } else if ($method === 'post') {
         $array = $_POST;
     }
 
@@ -186,6 +186,11 @@ function is_all_null($args) {
     }
 
     return true;
+}
+
+function redirect($url) {
+    header('Location: '. $url);
+    exit;
 }
 
 ?>
