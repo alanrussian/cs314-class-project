@@ -16,6 +16,23 @@ if (is_all_null($args)) {
         die('You need to be editing to access this page.');
     }
 
+    // See if attempting to save
+    if (isset($_POST['save'])) {
+        $object = array(
+            'name' => sanitize_post_value('name'),
+            'artist' => sanitize_post_value('artist'),
+            'type' => sanitize_post_value('type'),
+            'genre' => sanitize_post_value('genre'),
+            'release_date' => sanitize_post_value('release_date'),
+            'label' => sanitize_post_value('label')
+        );
+
+        // Add the object and go to the detail page
+        add($object, 'Album');
+        redirect('album_detail.php?name='. urlencode($object['name']) .'&artist='. urlencode($object['artist']));
+    }
+
+    // Not attempting to save. Display create page
     $new = true;
 
     // Create an empty array with the attributes
@@ -92,12 +109,12 @@ if (is_all_null($args)) {
         <form role="form">
             <div class="form-group">
                 <label for="editName">Name</label>
-                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="<?= htmlentities($details['name']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editName" name="name" placeholder="Enter name" value="<?= htmlentities($details['name']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editArtist">Artist</label>
-                <select class="form-control" id="editArtist"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <select class="form-control" id="editArtist" name="artist"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <?php
                         $artists = get_distinct('name', 'Artist');
 
@@ -110,7 +127,7 @@ if (is_all_null($args)) {
 
             <div class="form-group">
                 <label for="editType">Type</label>
-                <select class="form-control" id="editType"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <select class="form-control" id="editType" name="type"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option value="LP" <?= $details['type'] === 'LP' ? ' selected="selected"' : '' ?>>LP</option>
                     <option value="EP" <?= $details['type'] === 'EP' ? ' selected="selected"' : '' ?>>EP</option>
                     <option value="Single" <?= $details['type'] === 'Single' ? ' selected="selected"' : '' ?>>Single</option>
@@ -119,17 +136,17 @@ if (is_all_null($args)) {
 
             <div class="form-group">
                 <label for="editGenre">Genre</label>
-                <input type="text" class="form-control" id="editGenre" value="<?= $details['genre'] ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editGenre" name="genre" value="<?= $details['genre'] ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editReleaseDate">Relase Date</label>
-                <input type="text" class="form-control" id="editReleaseDate" placeholder="Enter release date" value="<?= htmlentities($details['release_date']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editReleaseDate" name="release_date" placeholder="Enter release date" value="<?= htmlentities($details['release_date']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editLabel">Label</label>
-                <select class="form-control" id="editLabel"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <select class="form-control" id="editLabel" name="label"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <?php
                         $labels = get_distinct('name', 'Label');
 
@@ -140,7 +157,7 @@ if (is_all_null($args)) {
                 </select>
             </div>
 
-            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="<?= $new ? 'Create Album' : 'Save Changes' ?>"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
+            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" name="save" value="<?= $new ? 'Create Album' : 'Save Changes' ?>"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
         </form>
         
         <?php
