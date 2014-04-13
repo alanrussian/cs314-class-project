@@ -191,4 +191,18 @@ function redirect($url) {
     exit;
 }
 
+function parse_date($text) {
+    if ($text === NULL) {
+        return NULL;
+    }
+
+    $date = strtotime($text);
+
+    if ($date === false) {
+        return NULL;
+    }
+
+    return date('Y-m-d', $date);
+}
+
 ?>

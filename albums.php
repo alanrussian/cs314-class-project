@@ -130,7 +130,7 @@ require_once('include/functions.php');
                         'artist' => sanitize_get_value('artist'),
                         'type' => sanitize_get_value('type'),
                         'genre' => sanitize_get_value('genre'),
-                        'release_date' => sanitize_get_value('releaseDate'),
+                        'release_date' => parse_date(sanitize_get_value('releaseDate')),
                         'label' => sanitize_get_value('label')
                     );
                     
