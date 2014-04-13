@@ -15,6 +15,22 @@ if (is_all_null($args)) {
         die('You need to be editing to access this page.');
     }
 
+    // See if attempting to save
+    if (isset($_POST['save'])) {
+        $object = array(
+            'name' => sanitize_post_value('name'),
+            'founded_year' => sanitize_post_value('founded_year'),
+            'founded_location' => sanitize_post_value('founded_location'),
+            'disbanded_year' => sanitize_post_value('disbanded_year'),
+            'website' => sanitize_post_value('website')
+        );
+
+        // Add the object and go to the detail page
+        add($object, 'Artist');
+        redirect('artist_detail.php?name='. urlencode($object['name']));
+    }
+
+    // Not attempting to save. Display create page
     $new = true;
 
     // Create an empty array with the attributes
@@ -90,12 +106,12 @@ if (is_all_null($args)) {
         <form role="form">
             <div class="form-group">
                 <label for="editName">Name</label>
-                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="<?= htmlentities($details['name']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editName" name="name" placeholder="Enter name" value="<?= htmlentities($details['name']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editYearFounded">Year Founded</label>
-                <select class="form-control" id="editYearFounded"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <select class="form-control" id="editYearFounded" name="founded_year"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option value="">-----</option>
                     <?php print_year_options($details['founded_year']); ?>
                 </select>
@@ -103,12 +119,12 @@ if (is_all_null($args)) {
 
             <div class="form-group">
                 <label for="editLocation">Location Founded</label>
-                <input type="text" class="form-control" id="editLocation" placeholder="Enter location" value="<?= htmlentities($details['founded_location']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editLocation" name="founded_location" placeholder="Enter location" value="<?= htmlentities($details['founded_location']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editYearDisbanded">Year Disbanded</label>
-                <select class="form-control" id="editYearDisbanded"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <select class="form-control" id="editYearDisbanded" name="disbanded_year"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                 <option value="NULL"<? $details['disbanded_year'] === NULL ? ' selected="selected"' : '' ?>>Still Together</option>
                     <?php print_year_options($details['disbanded_year']); ?>
                 </select>
@@ -117,10 +133,10 @@ if (is_all_null($args)) {
 
             <div class="form-group">
                 <label for="editWebsite">Website</label>
-                <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="<?= htmlentities($details['website']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editWebsite" name="website" placeholder="Enter website" value="<?= htmlentities($details['website']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
-            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="<?= $new ? 'Create Artist' : 'Save Changes' ?>"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
+            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" name="save" value="<?= $new ? 'Create Artist' : 'Save Changes' ?>"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
         </form>
         
         <?php
