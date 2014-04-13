@@ -37,6 +37,17 @@ if (is_all_null($args)) {
         'birth_date' => ''
     );
 } else {
+    // See if attempting to update 
+    if (isset($_POST['save'])) {
+        $object = array(
+            'name' => sanitize_post_value('name'),
+            'birth_date' => sanitize_post_value('birth_date')
+        );
+
+        // Add the object and go to the detail page
+        update($args, $object, 'Musician');
+    }
+    
     $details = get_one($args, 'Musician');
 }
 

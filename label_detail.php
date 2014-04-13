@@ -41,6 +41,19 @@ if (is_all_null($args)) {
         'website' => ''
     );
 } else {
+    // See if attempting to update 
+    if (isset($_POST['save'])) {
+        $object = array(
+            'name' => sanitize_post_value('name'),
+            'founded_year' => sanitize_post_value('founded_year'),
+            'location' => sanitize_post_value('location'),
+            'website' => sanitize_post_value('website')
+        );
+
+        // Add the object and go to the detail page
+        update($args, $object, 'Label');
+    }
+    
     $details = get_one($args, 'Label');
 }
 
