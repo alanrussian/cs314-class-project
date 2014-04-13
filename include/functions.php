@@ -36,7 +36,7 @@ function has_permissions() {
 
 function list_results($args, $table) {
   
-  $con=mysqli_connect(HOST, USER, PASS, DB);
+  $con = mysqli_connect(HOST, USER, PASS, DB);
   
   $query = 'select * from ' . $table;
 
@@ -70,6 +70,30 @@ function get_one($args, $table) {
 
     return $results[0];
 }
+
+function get_distinct($attr, $table) {
+    $con = mysqli_connect(HOST, USER, PASS, DB);
+
+    $query = 'select distinct ' . $attr . ' from ' . $table; 
+
+    $results = mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
+    
+    mysqli_close($con);
+
+    return $results;
+}
+
+// function get_genres() {
+//     $con = mysqli_connect(HOST, USER, PASS, DB);
+
+//     $query = 'select distinct genre from Album';
+
+//     $genres = mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
+
+//     mysqli_close($con);
+
+//     return $genres;
+// }
 
 function add_to_table($args, $table) {
     
