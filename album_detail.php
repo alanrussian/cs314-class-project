@@ -2,6 +2,13 @@
 
 require_once('include/functions.php');
 
+$args = array(
+    'name' => sanitize_get_value('name'),
+    'artist' => sanitize_get_value('artist')
+);
+
+$details = get_one($args, 'Album');
+
 ?>
 
 <!DOCTYPE html>
@@ -63,43 +70,38 @@ require_once('include/functions.php');
         <form role="form">
             <div class="form-group">
                 <label for="editName">Name</label>
-                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Funeral"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="<?= htmlentities($details['name']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editArtist">Artist</label>
                 <select class="form-control" id="editArtist"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option>-----</option>
-                    <option selected="selected">Arcade Fire</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="editType">Type</label>
                 <select class="form-control" id="editType"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-                    <option value="LP">LP</option>
-                    <option value="EP">EP</option>
-                    <option value="Single">Single</option>
+                    <option value="LP" <?= $details['type'] === 'LP' ? ' selected="selected"' : '' ?>>LP</option>
+                    <option value="EP" <?= $details['type'] === 'EP' ? ' selected="selected"' : '' ?>>EP</option>
+                    <option value="Single" <?= $details['type'] === 'Single' ? ' selected="selected"' : '' ?>>Single</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="editGenre">Genre</label>
-                <select class="form-control" id="editGenre"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-                    <option selected="selected">Indie Rock</option>
-                    <!-- Todo: Get from database -->
-                </select>
+                <input type="text" class="form-control" id="editGenre" value="<?= $details['genre'] ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editReleaseDate">Relase Date</label>
-                <input type="text" class="form-control" id="editReleaseDate" placeholder="Enter release date" value="January 1, 2004"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editReleaseDate" placeholder="Enter release date" value="<?= htmlentities($details['release_date']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editLabel">Label</label>
                 <select class="form-control" id="editLabel"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-                    <option selected="selected">Merge Records</option>
                     <!-- Todo: Get from database -->
                 </select>
             </div>
@@ -119,12 +121,28 @@ require_once('include/functions.php');
             </thead>
 
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Neighborhood #1 (Tunnels)</td>
-                    <td>4:48</td>
-                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                </tr>
+                <?php
+                    // Set up filter
+                    $filter = array(
+                        'album' => $details['name'],
+                        'artist' => $details['artist']
+                    );
+                    
+                    // Print Results
+                    $results = list_results($filter, 'Song');
+
+                    foreach ($results as $result) {
+                ?>
+                    <tr>
+                        <td><?= $result['track_number'] ?></td>
+                        <td><?= htmlentities($result['title']) ?></td>
+                        <td><?= $result['duration_seconds'] ?></td>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                    </tr>
+                <?php
+                    }
+                ?>
+            </tbody>
         </table>
       </div>
 

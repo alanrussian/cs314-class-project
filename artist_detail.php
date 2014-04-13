@@ -2,6 +2,12 @@
 
 require_once('include/functions.php');
 
+$args = array(
+    'name' => sanitize_get_value('name')
+);
+
+$details = get_one($args, 'Artist');
+
 ?>
 
 <!DOCTYPE html>
@@ -63,35 +69,34 @@ require_once('include/functions.php');
         <form role="form">
             <div class="form-group">
                 <label for="editName">Name</label>
-                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Girls"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="<?= htmlentities($details['name']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editYearFounded">Year Founded</label>
                 <select class="form-control" id="editYearFounded"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option value="">-----</option>
-                    <?php print_year_options(2007); ?>
+                    <?php print_year_options($details['founded_year']); ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="editLocation">Location Founded</label>
-                <input type="text" class="form-control" id="editLocation" placeholder="Enter location" value="San Francisco, California"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editLocation" placeholder="Enter location" value="<?= htmlentities($details['founded_location']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editYearDisbanded">Year Disbanded</label>
                 <select class="form-control" id="editYearDisbanded"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-                    <option value="">-----</option>
-                    <option value="NULL">Still Together</option>
-                    <?php print_year_options(2012); ?>
+                <option value="NULL"<? $details['disbanded_year'] === NULL ? ' selected="selected"' : '' ?>>Still Together<option>
+                    <?php print_year_options($details['disbanded_year']); ?>
                 </select>
             </div>
 
 
             <div class="form-group">
                 <label for="editWebsite">Website</label>
-                <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="https://www.facebook.com/GIRLSsf"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="<?= htmlentities($details['website']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
@@ -111,14 +116,29 @@ require_once('include/functions.php');
             </thead>
 
             <tbody>
-                <tr>
-                    <td><a href="album_detail.php?name=In%20The%20Aeroplane%20over%20the%20Sea">In the Aeroplane over the Sea</a></td>
-                    <td>LP</td>
-                    <td>Indie Rock</td>
-                    <td>May 10, 1998</td>
-                    <td><a href="label_detail.php?name=Merge%20Records">Merge Records</a></td>
-                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                </tr>
+                <?php
+                    // Set up filter
+                    $filter = array(
+                        'artist' => $details['name']
+                    );
+                    
+                    // Print Results
+                    $results = list_results($filter, 'Album');
+
+                    foreach ($results as $result) {
+                ?>
+                    <tr>
+                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                        <td><?= htmlentities($result['type']) ?></td>
+                        <td><?= htmlentities($result['genre']) ?></td>
+                        <td><?= htmlentities($result['release_date']) ?></td>
+                        <td><a href="labels.php?name=<?= urlencode($result['label']) ?>"><?= htmlentities($result['label']) ?></a></td>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                    </tr>
+                <?php
+                    }
+                ?>
+            </tbody>
         </table>
 
         <h2>Musicians</h2>
@@ -132,11 +152,31 @@ require_once('include/functions.php');
             </thead>
 
             <tbody>
-                <tr>
-                    <td><a href="musician_detail.php?name=Panda%20Bear&birthdate=19780617">Panda Bear</a></td>
-                    <td>July 17, 1978</td>
-                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                </tr>
+                <?php
+                    // Set up filter
+                    $filter = array(
+                        'artist' => $details['name']
+                    );
+                    
+                    // Print Results
+                    $results = list_results($filter, 'ArtistMusician');
+
+                    // Get artist names
+                    foreach ($results as $artistMusician) {
+                        // Get artist
+                        $result = get_one(array(
+                            'name' => $artistMusician['musician_name'],
+                            'birth_date' => $artistMusician['musician_birth_date']), 'Musician');
+                ?>
+                    <tr>
+                    <td><a href="musician_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                    <td><?= urlencode($result['birth_date']) ?></td>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                    </tr>
+                <?php
+                    }
+                ?>
+            </tbody>
         </table>
       </div>
 

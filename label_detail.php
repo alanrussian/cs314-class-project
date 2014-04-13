@@ -2,6 +2,12 @@
 
 require_once('include/functions.php');
 
+$args = array(
+    'name' => sanitize_get_value('name')
+);
+
+$details = get_one($args, 'Label');
+
 ?>
 
 <!DOCTYPE html>
@@ -63,25 +69,25 @@ require_once('include/functions.php');
         <form role="form">
             <div class="form-group">
                 <label for="editName">Name</label>
-                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="Merge Records"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editName" placeholder="Enter name" value="<?= htmlentities($details['name']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editYear">Year Founded</label>
                 <select class="form-control" id="editYear"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
                     <option value="">-----</option>
-                    <?php print_year_options(1989); ?>
+                    <?php print_year_options($details['founded_year']); ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="editLocation">Location</label>
-                <input type="text" class="form-control" id="editLocation" placeholder="Enter location" value="Durham, North Carolina"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editLocation" placeholder="Enter location" value="<?= htmlentities($details['location']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
                 <label for="editWebsite">Website</label>
-                <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="http://mergerecords.com/"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="<?= htmlentities($details['website']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
@@ -101,14 +107,29 @@ require_once('include/functions.php');
             </thead>
 
             <tbody>
-                <tr>
-                    <td><a href="album_detail.php?name=In%20The%20Aeroplane%20over%20the%20Sea">In the Aeroplane over the Sea</a></td>
-                    <td><a href="artist_detail.php?name=Neutral%20Milk%20Hotel">Neutral Milk Hotel</a></td>
-                    <td>LP</td>
-                    <td>Indie Rock</td>
-                    <td>May 10, 1998</td>
-                    <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                </tr>
+                <?php
+                    // Set up filter
+                    $filter = array(
+                        'label' => $details['name']
+                    );
+                    
+                    // Print Results
+                    $results = list_results($filter, 'Album');
+
+                    foreach ($results as $result) {
+                ?>
+                    <tr>
+                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                        <td><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
+                        <td><?= htmlentities($result['type']) ?></td>
+                        <td><?= htmlentities($result['genre']) ?></td>
+                        <td><?= htmlentities($result['release_date']) ?></td>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                    </tr>
+                <?php
+                    }
+                ?>
+            </tbody>
         </table>
       </div>
 
