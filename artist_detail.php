@@ -6,7 +6,28 @@ $args = array(
     'name' => sanitize_get_value('name')
 );
 
-$details = get_one($args, 'Artist');
+// Determine whether new record
+$new = false;
+if (is_all_null($args)) {
+    // Ensure they have permissions
+    if (! has_permissions()) {
+        header('HTTP/1.0 401 Unauthorized');
+        die('You need to be editing to access this page.');
+    }
+
+    $new = true;
+
+    // Create an empty array with the attributes
+    $details = array(
+        'name' => '',
+        'founded_year' => '',
+        'founded_location' => '',
+        'disbanded_year' => '',
+        'website' => ''
+    );
+} else {
+    $details = get_one($args, 'Artist');
+}
 
 ?>
 
@@ -88,7 +109,7 @@ $details = get_one($args, 'Artist');
             <div class="form-group">
                 <label for="editYearDisbanded">Year Disbanded</label>
                 <select class="form-control" id="editYearDisbanded"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-                <option value="NULL"<? $details['disbanded_year'] === NULL ? ' selected="selected"' : '' ?>>Still Together<option>
+                <option value="NULL"<? $details['disbanded_year'] === NULL ? ' selected="selected"' : '' ?>>Still Together</option>
                     <?php print_year_options($details['disbanded_year']); ?>
                 </select>
             </div>
@@ -99,85 +120,91 @@ $details = get_one($args, 'Artist');
                 <input type="text" class="form-control" id="editWebsite" placeholder="Enter website" value="<?= htmlentities($details['website']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
-            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
+            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="<?= $new ? 'Create Artist' : 'Save Changes' ?>"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
         </form>
         
-        <h2>Albums</h2>
-        <table class="table table-striped results">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Genre</th>
-                    <th>Release Date</th>
-                    <th>Label</th>
-                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
-                </tr>
-            </thead>
+        <?php
+            if (! $new) {
+        ?>
+                <h2>Albums</h2>
+                <table class="table table-striped results">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Genre</th>
+                            <th>Release Date</th>
+                            <th>Label</th>
+                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                        </tr>
+                    </thead>
 
-            <tbody>
-                <?php
-                    // Set up filter
-                    $filter = array(
-                        'artist' => $details['name']
-                    );
-                    
-                    // Print Results
-                    $results = list_results($filter, 'Album');
+                    <tbody>
+                        <?php
+                            // Set up filter
+                            $filter = array(
+                                'artist' => $details['name']
+                            );
+                            
+                            // Print Results
+                            $results = list_results($filter, 'Album');
 
-                    foreach ($results as $result) {
-                ?>
-                    <tr>
-                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>&artist=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['name']) ?></a></td>
-                        <td><?= htmlentities($result['type']) ?></td>
-                        <td><?= htmlentities($result['genre']) ?></td>
-                        <td><?= htmlentities($result['release_date']) ?></td>
-                        <td><a href="labels.php?name=<?= urlencode($result['label']) ?>"><?= htmlentities($result['label']) ?></a></td>
-                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                    </tr>
-                <?php
-                    }
-                ?>
-            </tbody>
-        </table>
+                            foreach ($results as $result) {
+                        ?>
+                            <tr>
+                                <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>&artist=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                                <td><?= htmlentities($result['type']) ?></td>
+                                <td><?= htmlentities($result['genre']) ?></td>
+                                <td><?= htmlentities($result['release_date']) ?></td>
+                                <td><a href="labels.php?name=<?= urlencode($result['label']) ?>"><?= htmlentities($result['label']) ?></a></td>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                            </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
 
-        <h2>Musicians</h2>
-        <table class="table table-striped results">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Birth Date</th>
-                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
-                </tr>
-            </thead>
+                <h2>Musicians</h2>
+                <table class="table table-striped results">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Birth Date</th>
+                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                        </tr>
+                    </thead>
 
-            <tbody>
-                <?php
-                    // Set up filter
-                    $filter = array(
-                        'artist' => $details['name']
-                    );
-                    
-                    // Print Results
-                    $results = list_results($filter, 'ArtistMusician');
+                    <tbody>
+                        <?php
+                            // Set up filter
+                            $filter = array(
+                                'artist' => $details['name']
+                            );
+                            
+                            // Print Results
+                            $results = list_results($filter, 'ArtistMusician');
 
-                    // Get artist names
-                    foreach ($results as $artistMusician) {
-                        // Get artist
-                        $result = get_one(array(
-                            'name' => $artistMusician['musician_name'],
-                            'birth_date' => $artistMusician['musician_birth_date']), 'Musician');
-                ?>
-                    <tr>
-                    <td><a href="musician_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
-                    <td><?= urlencode($result['birth_date']) ?></td>
-                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                    </tr>
-                <?php
-                    }
-                ?>
-            </tbody>
-        </table>
+                            // Get artist names
+                            foreach ($results as $artistMusician) {
+                                // Get artist
+                                $result = get_one(array(
+                                    'name' => $artistMusician['musician_name'],
+                                    'birth_date' => $artistMusician['musician_birth_date']), 'Musician');
+                        ?>
+                            <tr>
+                            <td><a href="musician_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                            <td><?= urlencode($result['birth_date']) ?></td>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                            </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
+        <?php
+            }
+        ?>
       </div>
 
     </div> <!-- /container -->

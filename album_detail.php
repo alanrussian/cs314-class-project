@@ -7,7 +7,29 @@ $args = array(
     'artist' => sanitize_get_value('artist')
 );
 
-$details = get_one($args, 'Album');
+// Determine whether new record
+$new = false;
+if (is_all_null($args)) {
+    // Ensure they have permissions
+    if (! has_permissions()) {
+        header('HTTP/1.0 401 Unauthorized');
+        die('You need to be editing to access this page.');
+    }
+
+    $new = true;
+
+    // Create an empty array with the attributes
+    $details = array(
+        'name' => '',
+        'artist' => '',
+        'type' => '',
+        'genre' => '',
+        'release_date' => '',
+        'label' => ''
+    );
+} else {
+    $details = get_one($args, 'Album');
+}
 
 ?>
 
@@ -106,44 +128,50 @@ $details = get_one($args, 'Album');
                 </select>
             </div>
 
-            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
+            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="<?= $new ? 'Create Album' : 'Save Changes' ?>"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
         </form>
         
-        <h2>Songs</h2>
-        <table class="table table-striped results">
-            <thead>
-                <tr>
-                    <th>Track Number</th>
-                    <th>Title</th>
-                    <th>Duration</th>
-                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
-                </tr>
-            </thead>
+        <?php
+            if (! $new) {
+        ?>
+                <h2>Songs</h2>
+                <table class="table table-striped results">
+                    <thead>
+                        <tr>
+                            <th>Track Number</th>
+                            <th>Title</th>
+                            <th>Duration</th>
+                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                        </tr>
+                    </thead>
 
-            <tbody>
-                <?php
-                    // Set up filter
-                    $filter = array(
-                        'album' => $details['name'],
-                        'artist' => $details['artist']
-                    );
-                    
-                    // Print Results
-                    $results = list_results($filter, 'Song');
+                    <tbody>
+                        <?php
+                            // Set up filter
+                            $filter = array(
+                                'album' => $details['name'],
+                                'artist' => $details['artist']
+                            );
+                            
+                            // Print Results
+                            $results = list_results($filter, 'Song');
 
-                    foreach ($results as $result) {
-                ?>
-                    <tr>
-                        <td><?= $result['track_number'] ?></td>
-                        <td><?= htmlentities($result['title']) ?></td>
-                        <td><?= $result['duration_seconds'] ?></td>
-                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
-                    </tr>
-                <?php
-                    }
-                ?>
-            </tbody>
-        </table>
+                            foreach ($results as $result) {
+                        ?>
+                            <tr>
+                                <td><?= $result['track_number'] ?></td>
+                                <td><?= htmlentities($result['title']) ?></td>
+                                <td><?= $result['duration_seconds'] ?></td>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                            </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
+        <?php
+            }
+        ?>
       </div>
 
     </div> <!-- /container -->
