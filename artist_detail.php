@@ -42,6 +42,20 @@ if (is_all_null($args)) {
         'website' => ''
     );
 } else {
+    // See if attempting to update 
+    if (isset($_POST['save'])) {
+        $object = array(
+            'name' => sanitize_post_value('name'),
+            'founded_year' => sanitize_post_value('founded_year'),
+            'founded_location' => sanitize_post_value('founded_location'),
+            'disbanded_year' => sanitize_post_value('disbanded_year'),
+            'website' => sanitize_post_value('website')
+        );
+
+        // Add the object and go to the detail page
+        update($args, $object, 'Artist');
+    }
+    
     $details = get_one($args, 'Artist');
 }
 

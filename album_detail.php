@@ -45,6 +45,21 @@ if (is_all_null($args)) {
         'label' => ''
     );
 } else {
+    // See if attempting to update 
+    if (isset($_POST['save'])) {
+        $object = array(
+            'name' => sanitize_post_value('name'),
+            'artist' => sanitize_post_value('artist'),
+            'type' => sanitize_post_value('type'),
+            'genre' => sanitize_post_value('genre'),
+            'release_date' => sanitize_post_value('release_date'),
+            'label' => sanitize_post_value('label')
+        );
+
+        // Add the object and go to the detail page
+        update($args, $object, 'Album');
+    }
+    
     $details = get_one($args, 'Album');
 }
 
