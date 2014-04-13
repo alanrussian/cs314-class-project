@@ -129,6 +129,30 @@ function add($args, $table) {
     mysqli_close($con);   
 }
 
+function update($args, $objects, $table) {
+    $con = mysqli_connect(HOST, USER, PASS, DB);
+
+    $new_values = [];
+
+    foreach($objects as $key => $value) {
+      if($value !== null) {
+          $new_values[] = "$key = '$value'";
+      }
+    }
+
+    $new_args = [];
+
+    foreach($args as $key => $value) {
+      if($value !== null) {
+          $new_args[] = "$key = '$value'";
+      }
+    }
+
+    $query = 'update ' . $table . ' set ' . implode(', ', $new_values) . ' where ' . implode(', ', $new_args);
+
+    echo $query;
+}
+
 function selected_if_get($parameter, $value) {
     return sanitize_get_value($parameter) == $value ? ' selected="selected"' : '';
 }
