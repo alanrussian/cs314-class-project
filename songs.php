@@ -119,12 +119,12 @@ require_once('include/functions.php');
                     foreach ($results as $result) {
                 ?>
                     <tr>
-                        <td><?= $result['track_number'] ?></td>
+                        <td data-pk="track_number"><?= $result['track_number'] ?></td>
                         <td><?= htmlentities($result['title']) ?></td>
-                        <td><a href="album_detail.php?name=<?= urlencode($result['album']) ?>"><?= htmlentities($result['album']) ?></a></td>
-                        <td><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
+                        <td data-pk="album"><a href="album_detail.php?name=<?= urlencode($result['album']) ?>"><?= htmlentities($result['album']) ?></a></td>
+                        <td data-pk="artist"><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
                         <td><?= $result['duration_seconds'] ?></td>
-                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Song"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                     </tr>
                 <?php
                     }
@@ -141,5 +141,7 @@ require_once('include/functions.php');
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <script src="js/main.js"></script>
   </body>
 </html>

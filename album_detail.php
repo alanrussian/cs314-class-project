@@ -119,7 +119,7 @@ if (is_all_null($args)) {
 
       <!-- Main component for a primary marketing message or call to action -->
       <div>
-        <h1 class="page-header">Album: Funeral</h1>
+        <h1 class="page-header"><?= $new ? 'New Album' : 'Album: '. htmlentities($details['name']) ?></h1>
         <h2>Attributes</h2>
         <form role="form" method="post">
             <div class="form-group">
@@ -203,10 +203,10 @@ if (is_all_null($args)) {
                             foreach ($results as $result) {
                         ?>
                             <tr>
-                                <td><?= $result['track_number'] ?></td>
+                                <td data-pk="track_number"><?= $result['track_number'] ?></td>
                                 <td><?= htmlentities($result['title']) ?></td>
                                 <td><?= $result['duration_seconds'] ?></td>
-                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Song" data-pk-artist="<?= htmlentities($result['artist']) ?>" data-pk-album="<?= htmlentities($result['album']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                             </tr>
                         <?php
                             }
@@ -226,5 +226,7 @@ if (is_all_null($args)) {
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <script src="js/main.js"></script>
   </body>
 </html>

@@ -98,9 +98,9 @@ require_once('include/functions.php');
                     foreach ($results as $result) {
                 ?>
                     <tr>
-                    <td><a href="musician_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
-                    <td><?= urlencode($result['birth_date']) ?></td>
-                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                        <td data-pk="name"><a href="musician_detail.php?name=<?= urlencode($result['name']) ?>&birth_date=<?= urlencode($result['birth_date']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                        <td data-pk="birth_date"><?= urlencode($result['birth_date']) ?></td>
+                            <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Musician"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                     </tr>
                 <?php
                     }
@@ -117,5 +117,7 @@ require_once('include/functions.php');
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <script src="js/main.js"></script>
   </body>
 </html>

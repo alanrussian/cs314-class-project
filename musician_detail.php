@@ -107,7 +107,7 @@ if (is_all_null($args)) {
 
       <!-- Main component for a primary marketing message or call to action -->
       <div>
-        <h1 class="page-header">Musician: Panda Bear</h1>
+        <h1 class="page-header"><?= $new ? 'New Musician' : 'Musician: '. htmlentities($details['name']) ?></h1>
         <h2>Attributes</h2>
         <form role="form" method="post">
             <div class="form-group">
@@ -156,12 +156,12 @@ if (is_all_null($args)) {
                                 $result = get_one(array('name' => $artistMusician['artist']), 'Artist');
                         ?>
                             <tr>
-                                <td><a href="artist_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                                <td data-pk="artist"><a href="artist_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
                                 <td><?= htmlentities($result['founded_year']) ?></td>
                                 <td><?= htmlentities($result['founded_location']) ?></td>
                                 <td><?= htmlentities($result['disbanded_year']) ?></td>
                                 <td><a href="<?= htmlentities($result['website']) ?>"><?= htmlentities($result['website']) ?></a></td>
-                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td> <?php } ?>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="ArtistMusician" data-pk-musician_name="<?= htmlentities($details['name']) ?>" data-pk-musician_birth_date="<?= htmlentities($details['birth_date']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td> <?php } ?>
                             </tr>
                         <?php
                             }
@@ -181,5 +181,7 @@ if (is_all_null($args)) {
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <script src="js/main.js"></script>
   </body>
 </html>
