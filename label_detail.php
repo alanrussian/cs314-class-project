@@ -102,7 +102,7 @@ if (is_all_null($args)) {
       <div>
         <h1 class="page-header">Label: Merge Records</h1>
         <h2>Attributes</h2>
-        <form role="form">
+        <form role="form" method="post">
             <div class="form-group">
                 <label for="editName">Name</label>
                 <input type="text" class="form-control" id="editName" name="name" placeholder="Enter name" value="<?= htmlentities($details['name']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
