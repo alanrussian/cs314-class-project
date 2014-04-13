@@ -171,12 +171,12 @@ if (is_all_null($args)) {
                             foreach ($results as $result) {
                         ?>
                             <tr>
-                                <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>&artist=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['name']) ?></a></td>
-                                <td><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
+                                <td data-pk="name"><a href="album_detail.php?name=<?= urlencode($result['name']) ?>&artist=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                                <td data-pk="artist"><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
                                 <td><?= htmlentities($result['type']) ?></td>
                                 <td><?= htmlentities($result['genre']) ?></td>
                                 <td><?= htmlentities($result['release_date']) ?></td>
-                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td><?php } ?>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Album"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                             </tr>
                         <?php
                             }
@@ -196,5 +196,7 @@ if (is_all_null($args)) {
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <script src="js/main.js"></script>
   </body>
 </html>

@@ -35,7 +35,6 @@ function has_permissions() {
 }
 
 function list_results($args, $table) {
-  
   $con = mysqli_connect(HOST, USER, PASS, DB);
   
   $query = 'select * from ' . $table;
@@ -117,6 +116,30 @@ function add($args, $table) {
     mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
     
     mysqli_close($con);   
+}
+
+function delete($args, $table) {
+  $con = mysqli_connect(HOST, USER, PASS, DB);
+  
+  $query = 'delete from ' . $table;
+
+  $filters = array();
+
+  foreach($args as $key => $value) {  
+    if ($value !== NULL) {
+      $filters[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
+    }
+  }
+
+  if(sizeof($filters) > 0) {
+    $query .= ' where ' . implode(' and ', $filters);
+  } else {
+      die('No filters!?');
+  }
+
+  mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
+
+  return true;
 }
 
 function selected_if_get($parameter, $value) {
