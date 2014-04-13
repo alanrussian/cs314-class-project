@@ -20,7 +20,7 @@ if (is_all_null($args)) {
     if (isset($_POST['save'])) {
         $object = array(
             'name' => sanitize_post_value('name'),
-            'birth_date' => sanitize_post_value('birth_date')
+            'birth_date' => parse_date(sanitize_post_value('birth_date'))
         );
 
         // Add the object and go to the detail page
@@ -41,7 +41,7 @@ if (is_all_null($args)) {
     if (isset($_POST['save'])) {
         $object = array(
             'name' => sanitize_post_value('name'),
-            'birth_date' => sanitize_post_value('birth_date')
+            'birth_date' => parse_date(sanitize_post_value('birth_date'))
         );
 
         // Add the object and go to the detail page

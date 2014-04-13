@@ -89,7 +89,7 @@ require_once('include/functions.php');
                     // Set up filter
                     $filter = array(
                         'name' => sanitize_get_value('name'),
-                        'birth_date' => sanitize_get_value('birthDate')
+                        'birth_date' => parse_date(sanitize_get_value('birthDate'))
                     );
                     
                     // Print Results

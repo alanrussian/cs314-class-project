@@ -23,7 +23,7 @@ if (is_all_null($args)) {
             'artist' => sanitize_post_value('artist'),
             'type' => sanitize_post_value('type'),
             'genre' => sanitize_post_value('genre'),
-            'release_date' => sanitize_post_value('release_date'),
+            'release_date' => parse_date(sanitize_post_value('release_date')),
             'label' => sanitize_post_value('label')
         );
 
@@ -52,7 +52,7 @@ if (is_all_null($args)) {
             'artist' => sanitize_post_value('artist'),
             'type' => sanitize_post_value('type'),
             'genre' => sanitize_post_value('genre'),
-            'release_date' => sanitize_post_value('release_date'),
+            'release_date' => parse_date(sanitize_post_value('release_date')),
             'label' => sanitize_post_value('label')
         );
 

@@ -130,7 +130,7 @@ require_once('include/functions.php');
                         'artist' => sanitize_get_value('artist'),
                         'type' => sanitize_get_value('type'),
                         'genre' => sanitize_get_value('genre'),
-                        'release_date' => sanitize_get_value('releaseDate'),
+                        'release_date' => parse_date(sanitize_get_value('releaseDate')),
                         'label' => sanitize_get_value('label')
                     );
                     
@@ -140,7 +140,7 @@ require_once('include/functions.php');
                     foreach ($results as $result) {
                 ?>
                     <tr>
-                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>&artist=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['name']) ?></a></td>
                         <td><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
                         <td><?= htmlentities($result['type']) ?></td>
                         <td><?= htmlentities($result['genre']) ?></td>
