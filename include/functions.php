@@ -114,11 +114,9 @@ function add($args, $table) {
 
     $query = 'insert into ' . $table . ' (' . implode(', ', array_keys($args)) . ') values (\'' . implode('\', \'', array_values($args)) . '\')';
 
-    echo $query;
-
-    mysqli_close($con);
-
+    mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
     
+    mysqli_close($con);   
 }
 
 function selected_if_get($parameter, $value) {
