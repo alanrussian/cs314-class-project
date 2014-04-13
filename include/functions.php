@@ -85,6 +85,8 @@ function get_one($args, $table) {
 
   $result = mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
 
+  mysqli_close($con);
+
   return mysqli_fetch_array($result);  
 }
 
@@ -107,7 +109,15 @@ function get_distinct($attr, $table) {
     return $retval;
 }
 
-function add_to_table($args, $table) {
+function add($args, $table) {
+    $con = mysqli_connect(HOST, USER, PASS, DB);
+
+    $query = 'insert into ' . $table . ' (' . implode(', ', array_keys($args)) . ') values (\'' . implode('\', \'', array_values($args)) . '\')';
+
+    echo $query;
+
+    mysqli_close($con);
+
     
 }
 
@@ -168,14 +178,4 @@ function _value($method, $parameter) {
     }
 }
 
-// This is used to see if all arguments are null (which means they are trying to create a new entry)
-function is_all_null($args) {
-    foreach ($args as $key => $value) {
-        if ($value !== NULL) {
-            return false;
-        }
-    }
-
-    return true;
-}
 ?>
