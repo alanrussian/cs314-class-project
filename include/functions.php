@@ -178,4 +178,14 @@ function _value($method, $parameter) {
     }
 }
 
+function is_all_null($args) {
+    foreach ($args as $key => $value) {
+        if ($value !== NULL) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 ?>
