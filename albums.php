@@ -92,7 +92,7 @@ require_once('include/functions.php');
 
                         foreach($genres as $genre) {
                     ?> 
-                        <option value="<?= $genre['genre'] ?>"<?= selected_if_get('genre', $genre['genre']) ?>><?= $genre['genre'] ?></option>
+                        <option value="<?= $genre ?>"<?= selected_if_get('genre', $genre) ?>><?= $genre ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -142,7 +142,7 @@ require_once('include/functions.php');
                     foreach ($results as $result) {
                 ?>
                     <tr>
-                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>&artist=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
                         <td><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
                         <td><?= htmlentities($result['type']) ?></td>
                         <td><?= htmlentities($result['genre']) ?></td>
