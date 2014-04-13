@@ -107,7 +107,7 @@ if (is_all_null($args)) {
 
       <!-- Main component for a primary marketing message or call to action -->
       <div>
-        <h1 class="page-header">Musician: Panda Bear</h1>
+        <h1 class="page-header"><?= $new ? 'New Musician' : 'Musician: '. htmlentities($details['name']) ?></h1>
         <h2>Attributes</h2>
         <form role="form" method="post">
             <div class="form-group">
