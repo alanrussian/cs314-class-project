@@ -6,10 +6,9 @@ $args = array(
     'name' => sanitize_get_value('name')
 );
 
-$details = get_one($args, 'Label');
 // Determine whether new record
 $new = false;
-if (is_all_null($args)) {
+if (isset($_GET['new']) || isset($_POST['new'])) {
     // Ensure they have permissions
     if (! has_permissions()) {
         header('HTTP/1.0 401 Unauthorized');
@@ -116,6 +115,14 @@ if (is_all_null($args)) {
         <h1 class="page-header"><?= $new ? 'New Label' : 'Label: '. htmlentities($details['name']) ?></h1>
         <h2>Attributes</h2>
         <form role="form" method="post">
+            <?php
+                if ($new) {
+            ?>
+                    <input type="hidden" name="new" value="new">
+            <?php
+                }
+            ?>
+
             <div class="form-group">
                 <label for="editName">Name</label>
                 <input type="text" class="form-control" id="editName" name="name" placeholder="Enter name" value="<?= htmlentities($details['name']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
