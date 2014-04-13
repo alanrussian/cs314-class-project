@@ -111,11 +111,48 @@ function get_distinct($attr, $table) {
 function add($args, $table) {
     $con = mysqli_connect(HOST, USER, PASS, DB);
 
-    $query = 'insert into ' . $table . ' (' . implode(', ', array_keys($args)) . ') values (\'' . implode('\', \'', array_values($args)) . '\')';
+    $values = array();
+
+    foreach(array_values($args) as $value) {
+	if(is_null($value)) {
+            $values[] = $value;
+        } else {
+            $values[] = "'$value'";
+        }
+    }
+
+    $query = 'insert into ' . $table . ' (' . implode(', ', array_keys($args)) . ') values (' . implode(', ', $values) . ')';
 
     mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
     
     mysqli_close($con);   
+}
+
+function update($args, $objects, $table) {
+    $con = mysqli_connect(HOST, USER, PASS, DB);
+
+    $new_values = [];
+
+    foreach($objects as $key => $value) {
+      if($value !== null) {
+          $new_values[] = "$key = '$value'";
+      }
+    }
+
+    $new_args = [];
+
+    foreach($args as $key => $value) {
+      if($value !== null) {
+          $new_args[] = "$key = '$value'";
+      }
+    }
+
+    $query = 'update ' . $table . ' set ' . implode(', ', $new_values) . ' where ' . implode(' and ', $new_args);
+
+    mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
+    //echo $query;
+    mysqli_close($con);   
+
 }
 
 function delete($args, $table) {
