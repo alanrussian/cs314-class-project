@@ -140,7 +140,7 @@ require_once('include/functions.php');
                     foreach ($results as $result) {
                 ?>
                     <tr>
-                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                        <td><a href="album_detail.php?name=<?= urlencode($result['name']) ?>&artist=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['name']) ?></a></td>
                         <td><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
                         <td><?= htmlentities($result['type']) ?></td>
                         <td><?= htmlentities($result['genre']) ?></td>
