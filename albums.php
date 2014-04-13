@@ -120,7 +120,7 @@ require_once('include/functions.php');
                     <th>Genre</th>
                     <th>Release Date</th>
                     <th>Label</th>
-                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                    <?php if (has_permissions()) { ?><th class="controls"><a class="btn btn-success" href="album_detail.php"><span class="glyphicon glyphicon-plus"></span></a></th><?php } ?>
                 </tr>
             </thead>
 

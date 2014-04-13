@@ -80,7 +80,7 @@ require_once('include/functions.php');
                 <tr>
                     <th>Name</th>
                     <th>Birth Date</th>
-                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                    <?php if (has_permissions()) { ?><th class="controls"><a class="btn btn-success" href="musician_detail.php"><span class="glyphicon glyphicon-plus"></span></a></th><?php } ?>
                 </tr>
             </thead>
 

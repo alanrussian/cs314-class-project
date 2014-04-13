@@ -7,7 +7,25 @@ $args = array(
     'birth_date' => sanitize_get_value('birth_date')
 );
 
-$details = get_one($args, 'Musician');
+// Determine whether new record
+$new = false;
+if (is_all_null($args)) {
+    // Ensure they have permissions
+    if (! has_permissions()) {
+        header('HTTP/1.0 401 Unauthorized');
+        die('You need to be editing to access this page.');
+    }
+
+    $new = true;
+
+    // Create an empty array with the attributes
+    $details = array(
+        'name' => '',
+        'birth_date' => ''
+    );
+} else {
+    $details = get_one($args, 'Musician');
+}
 
 ?>
 
@@ -78,51 +96,57 @@ $details = get_one($args, 'Musician');
                 <input type="text" class="form-control" id="editBirthDate" placeholder="Enter birth date" value="<?= htmlentities($details['birth_date']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
-            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="Save Changes"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
+            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" value="<?= $new ? 'Create Musician' : 'Save Changes' ?>"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
         </form>
 
-        <h2>Artists</h2>
-        <table class="table table-striped results">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Year Founded</th>
-                    <th>Location Founded</th>
-                    <th>Year Disbanded</th>
-                    <th>Website</th>
-                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
-                </tr>
-            </thead>
+        <?php
+            if (! $new) {
+        ?>
+                <h2>Artists</h2>
+                <table class="table table-striped results">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Year Founded</th>
+                            <th>Location Founded</th>
+                            <th>Year Disbanded</th>
+                            <th>Website</th>
+                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                        </tr>
+                    </thead>
 
-            <tbody>
-                <?php
-                    // Set up filter
-                    $filter = array(
-                        'musician_name' => $details['name'],
-                        'musician_birth_date' => $details['birth_date']
-                    );
-                    
-                    // Print Results
-                    $results = list_results($filter, 'ArtistMusician');
+                    <tbody>
+                        <?php
+                            // Set up filter
+                            $filter = array(
+                                'musician_name' => $details['name'],
+                                'musician_birth_date' => $details['birth_date']
+                            );
+                            
+                            // Print Results
+                            $results = list_results($filter, 'ArtistMusician');
 
-                    // Get artist names
-                    foreach ($results as $artistMusician) {
-                        // Get artist
-                        $result = get_one(array('name' => $artistMusician['artist']), 'Artist');
-                ?>
-                    <tr>
-                        <td><a href="artist_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
-                        <td><?= htmlentities($result['founded_year']) ?></td>
-                        <td><?= htmlentities($result['founded_location']) ?></td>
-                        <td><?= htmlentities($result['disbanded_year']) ?></td>
-                        <td><a href="<?= htmlentities($result['website']) ?>"><?= htmlentities($result['website']) ?></a></td>
-                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td> <?php } ?>
-                    </tr>
-                <?php
-                    }
-                ?>
-            </tbody>
-        </table>
+                            // Get artist names
+                            foreach ($results as $artistMusician) {
+                                // Get artist
+                                $result = get_one(array('name' => $artistMusician['artist']), 'Artist');
+                        ?>
+                            <tr>
+                                <td><a href="artist_detail.php?name=<?= urlencode($result['name']) ?>"><?= htmlentities($result['name']) ?></a></td>
+                                <td><?= htmlentities($result['founded_year']) ?></td>
+                                <td><?= htmlentities($result['founded_location']) ?></td>
+                                <td><?= htmlentities($result['disbanded_year']) ?></td>
+                                <td><a href="<?= htmlentities($result['website']) ?>"><?= htmlentities($result['website']) ?></a></td>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td> <?php } ?>
+                            </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
+        <?php
+            }
+        ?>
       </div>
 
     </div> <!-- /container -->
