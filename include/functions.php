@@ -66,9 +66,26 @@ function list_results($args, $table) {
 }
 
 function get_one($args, $table) {
-    $results = list_results($args, $table);
+  
+  $con = mysqli_connect(HOST, USER, PASS, DB);
+  
+  $query = 'select * from ' . $table;
 
-    return $results[0];
+  $filters = array();
+
+  foreach($args as $key => $value) {  
+    if ($value !== NULL) {
+      $filters[] = "$key = '$value'";
+    }
+  }
+
+  if(sizeof($filters) > 0) {
+    $query .= ' where ' . implode(' and ', $filters) . ' limit 1';
+  }
+
+  $result = mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
+
+  return mysqli_fetch_array($result);  
 }
 
 function get_distinct($attr, $table) {
@@ -89,18 +106,6 @@ function get_distinct($attr, $table) {
 
     return $retval;
 }
-
-// function get_genres() {
-//     $con = mysqli_connect(HOST, USER, PASS, DB);
-
-//     $query = 'select distinct genre from Album';
-
-//     $genres = mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
-
-//     mysqli_close($con);
-
-//     return $genres;
-// }
 
 function add_to_table($args, $table) {
     
