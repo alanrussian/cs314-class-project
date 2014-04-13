@@ -112,7 +112,17 @@ function get_distinct($attr, $table) {
 function add($args, $table) {
     $con = mysqli_connect(HOST, USER, PASS, DB);
 
-    $query = 'insert into ' . $table . ' (' . implode(', ', array_keys($args)) . ') values (\'' . implode('\', \'', array_values($args)) . '\')';
+    $values = array();
+
+    foreach(array_values($args) as $value) {
+	if(is_null($value)) {
+            $values[] = $value;
+        } else {
+            $values[] = "'$value'";
+        }
+    }
+
+    $query = 'insert into ' . $table . ' (' . implode(', ', array_keys($args)) . ') values (' . implode(', ', $values) . ')';
 
     mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
     
