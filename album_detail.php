@@ -98,7 +98,13 @@ if (is_all_null($args)) {
             <div class="form-group">
                 <label for="editArtist">Artist</label>
                 <select class="form-control" id="editArtist"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-                    <option>-----</option>
+                    <?php
+                        $artists = get_distinct('name', 'Artist');
+
+                        foreach($artists as $artist) {
+                    ?> 
+                        <option value="<?= htmlentities($artist) ?>"<?= $details['artist'] === $artist ? ' selected="selected"' : '' ?>><?= htmlentities($artist) ?></option>
+                    <?php } ?>
                 </select>
             </div>
 
@@ -124,7 +130,13 @@ if (is_all_null($args)) {
             <div class="form-group">
                 <label for="editLabel">Label</label>
                 <select class="form-control" id="editLabel"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-                    <!-- Todo: Get from database -->
+                    <?php
+                        $labels = get_distinct('name', 'Label');
+
+                        foreach($labels as $label) {
+                    ?> 
+                        <option value="<?= htmlentities($label) ?>"<?= $details['label'] === $label ? ' selected="selected"' : '' ?>><?= htmlentities($label) ?></option>
+                    <?php } ?>
                 </select>
             </div>
 

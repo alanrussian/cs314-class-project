@@ -85,14 +85,12 @@ require_once('include/functions.php');
                 <label for="filterGenre">Genre</label>
                 <select class="form-control" id="filterGenre" name="genre">
                     <option value="">-----</option>
-                    <!-- Todo: Get from database -->
-
                     <?php
                         $genres = get_distinct('genre', 'Album');
 
                         foreach($genres as $genre) {
                     ?> 
-                        <option value="<?= $genre ?>"<?= selected_if_get('genre', $genre) ?>><?= $genre ?></option>
+                        <option value="<?= htmlentities($genre) ?>"<?= selected_if_get('genre', $genre) ?>><?= htmlentities($genre) ?></option>
                     <?php } ?>
                 </select>
             </div>
