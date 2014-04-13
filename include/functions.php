@@ -148,9 +148,11 @@ function update($args, $objects, $table) {
       }
     }
 
-    $query = 'update ' . $table . ' set ' . implode(', ', $new_values) . ' where ' . implode(', ', $new_args);
+    $query = 'update ' . $table . ' set ' . implode(', ', $new_values) . ' where ' . implode(' and ', $new_args);
 
-    echo $query;
+    mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
+    //echo $query;
+    mysqli_close($con);   
 }
 
 function selected_if_get($parameter, $value) {
