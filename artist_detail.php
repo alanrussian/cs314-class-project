@@ -134,7 +134,6 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
             <div class="form-group">
                 <label for="editYearFounded">Year Founded</label>
                 <select class="form-control" id="editYearFounded" name="founded_year"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-                    <option value="">-----</option>
                     <?php print_year_options($details['founded_year']); ?>
                 </select>
             </div>
