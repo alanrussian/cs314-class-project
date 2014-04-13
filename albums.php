@@ -83,9 +83,17 @@ require_once('include/functions.php');
 
             <div class="form-group">
                 <label for="filterGenre">Genre</label>
-                <select class="form-control" id="filterGenre">
+                <select class="form-control" id="filterGenre" name="genre">
                     <option value="">-----</option>
                     <!-- Todo: Get from database -->
+
+                    <?php
+                        $genres = get_distinct('genre', 'Album');
+
+                        foreach($genres as $genre) {
+                    ?> 
+                        <option value="<?= $genre['genre'] ?>"<?= selected_if_get('genre', $genre['genre']) ?>><?= $genre['genre'] ?></option>
+                    <?php } ?>
                 </select>
             </div>
 
