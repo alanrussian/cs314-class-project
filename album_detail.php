@@ -35,14 +35,14 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
     // Not attempting to save. Display create page
     $new = true;
 
-    // Create an empty array with the attributes
+    // Create an array with attributes and given parameters (if any)
     $details = array(
-        'name' => '',
-        'artist' => '',
-        'type' => '',
-        'genre' => '',
-        'release_date' => '',
-        'label' => ''
+        'name' => request_value('name'),
+        'artist' => request_value('artist'),
+        'type' => request_value('type'),
+        'genre' => request_value('genre'),
+        'release_date' => request_value('release_date'),
+        'label' => request_value('label')
     );
 } else {
     // See if attempting to update 

@@ -170,6 +170,17 @@ function post_value($parameter) {
     }
 }
 
+// This tries get then post
+function request_value($parameter) {
+    $getValue = get_value($parameter);
+
+    if ($getValue === '') {
+        return post_value($parameter);
+    }
+
+    return $getValue;
+}
+
 function sanitize_get_value($parameter) {
     return _value('get', $parameter);
 }

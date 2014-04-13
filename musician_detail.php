@@ -31,10 +31,10 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
     // Not attempting to save. Display create page
     $new = true;
 
-    // Create an empty array with the attributes
+    // Create an array with attributes and given parameters (if any)
     $details = array(
-        'name' => '',
-        'birth_date' => ''
+        'name' => request_value('name'),
+        'birth_date' => request_value('birth_date')
     );
 } else {
     // See if attempting to update 

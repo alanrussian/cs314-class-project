@@ -32,12 +32,12 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
     // Not attempting to save. Display create page
     $new = true;
 
-    // Create an empty array with the attributes
+    // Create an array with attributes and given parameters (if any)
     $details = array(
-        'name' => '',
-        'founded_year' => '',
-        'location' => '',
-        'website' => ''
+        'name' => request_value('name'),
+        'founded_year' => request_value('founded_year'),
+        'location' => request_value('location'),
+        'website' => request_value('website')
     );
 } else {
     // See if attempting to update 
@@ -161,7 +161,7 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                             <th>Type</th>
                             <th>Genre</th>
                             <th>Release Date</th>
-                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                            <?php if (has_permissions()) { ?><th class="controls"><a href="album_detail.php?new&label=<?= urlencode($details['name']) ?>" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a></th><?php } ?>
                         </tr>
                     </thead>
 
