@@ -80,7 +80,14 @@ function get_distinct($attr, $table) {
     
     mysqli_close($con);
 
-    return $results;
+    $retval = array();
+
+    // cant believe i need to do this bullshit
+    foreach($results as $result) {
+        $retval[] = $result[$attr];
+    }
+
+    return $retval;
 }
 
 // function get_genres() {
