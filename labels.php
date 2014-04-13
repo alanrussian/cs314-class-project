@@ -95,7 +95,7 @@ require_once('include/functions.php');
                     <th>Year Founded</th>
                     <th>Location</th>
                     <th>Website</th>
-                    <?php if (has_permissions()) { ?><th class="controls"><a class="btn btn-success" href="label_detail.php"><span class="glyphicon glyphicon-plus"></span></a></th><?php } ?>
+                    <?php if (has_permissions()) { ?><th class="controls"><a class="btn btn-success" href="label_detail.php?new"><span class="glyphicon glyphicon-plus"></span></a></th><?php } ?>
                 </tr>
             </thead>
 
