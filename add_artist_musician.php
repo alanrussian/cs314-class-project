@@ -14,5 +14,5 @@ $output = array();
 $output['artist'] = get_one(array('artist' => $args['artist']), 'Artist');
 $output['musician'] = get_one(array('id' => $args['musician']), 'Musician');
 
-header('Content-Type: text/javascript; charset=utf8');
+header('Content-Type: application/json');
 echo json_encode($output);

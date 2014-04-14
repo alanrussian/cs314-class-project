@@ -146,7 +146,7 @@ require_once('include/functions.php');
                         <td><?= htmlentities($result['genre']) ?></td>
                         <td><?= htmlentities($result['release_date']) ?></td>
                         <td><a href="labels.php?name=<?= urlencode($result['label']) ?>"><?= htmlentities($result['label']) ?></a></td>
-                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Album"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-danger delete" data-table="Album"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                     </tr>
                 <?php
                     }

@@ -132,7 +132,7 @@ require_once('include/functions.php');
                         <td><?= htmlentities($result['founded_location']) ?></td>
                         <td><?= htmlentities($result['disbanded_year']) ?></td>
                         <td><a href="<?= htmlentities($result['website']) ?>"><?= htmlentities($result['website']) ?></a></td>
-                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Artist"><span class="glyphicon glyphicon-trash"></span></button></td> <?php } ?>
+                        <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-danger delete" data-table="Artist"><span class="glyphicon glyphicon-trash"></span></button></td> <?php } ?>
                     </tr>
                 <?php
                     }

@@ -155,12 +155,13 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                 <table class="table table-striped results">
                     <thead>
                         <tr>
+                            <th>Track Number</th>
                             <th>Name</th>
                             <th>Type</th>
                             <th>Genre</th>
                             <th>Release Date</th>
                             <th>Label</th>
-                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success" data-toggle="modal" data-target="#addAlbumSong"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                         </tr>
                     </thead>
 
@@ -184,12 +185,13 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
 
                         ?>
                             <tr>
+                                <td><?= htmlentities($albumSong['track_number']) ?></td>
                                 <td data-pk="album"><a href="album_detail.php?name=<?= urlencode($album['name']) ?>&artist=<?= urlencode($album['artist']) ?>"><?= htmlentities($album['name']) ?></a></td>
                                 <td><?= htmlentities($album['type']) ?></td>
                                 <td><?= htmlentities($album['genre']) ?></td>
                                 <td><?= htmlentities($album['release_date']) ?></td>
                                 <td><a href="labels.php?name=<?= urlencode($album['label']) ?>"><?= htmlentities($album['label']) ?></a></td>
-                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="AlbumSong" data-pk-artist="<?= htmlentities($album['artist']) ?>" data-pk-song="<?= htmlentities($albumSong['song']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-danger delete" data-table="AlbumSong" data-pk-artist="<?= htmlentities($album['artist']) ?>" data-pk-song="<?= htmlentities($albumSong['song']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                             </tr>
                         <?php
                             }
@@ -203,6 +205,45 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
 
     </div> <!-- /container -->
 
+    <div class="modal fade" id="addAlbumSong">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Add Song</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <input type="hidden" name="song" value="<?= htmlentities($details['title']) ?>">
+              <input type="hidden" name="artist" value="<?= htmlentities($details['artist']) ?>">
+              <div class="form-group">
+                <label for="track_number">Track Number</label>
+                <input type="number" min="1" class="form-control" id="track_number" name="track_number">
+              </div>
+
+              <div class="form-group">
+                <label for="album">Album</label>
+                <select class="form-control" id="album" name="album">
+                    <?php
+                        $albums = list_results(array('artist' => $details['artist']), 'Album');
+                        
+                        foreach ($albums as $album) {
+                            ?>
+                                <option value="<?= htmlentities($album['name']) ?>"><?= htmlentities($album['name']) ?></option>
+                            <?php
+                        }
+                    ?>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary save">Add Song</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
