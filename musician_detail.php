@@ -142,7 +142,7 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                             <th>Location Founded</th>
                             <th>Year Disbanded</th>
                             <th>Website</th>
-                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success" data-toggle="modal" data-target="#addArtistMusician"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                         </tr>
                     </thead>
 
@@ -181,6 +181,39 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
 
     </div> <!-- /container -->
 
+    <div class="modal fade" id="addArtistMusician">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Add Musician</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <input type="hidden" name="musician" value="<?= htmlentities($details['id']) ?>">
+              <div class="form-group">
+                <label for="artist">Artist</label>
+                <select class="form-control" id="artist" name="artist">
+                    <?php
+                        $artists = get_distinct('name', 'Artist');
+                        
+                        foreach ($artists as $artist) {
+                            ?>
+                                <option value="<?= htmlentities($artist) ?>"><?= htmlentities($artist) ?></option>
+                            <?php
+                        }
+                    ?>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary save">Add Musician</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

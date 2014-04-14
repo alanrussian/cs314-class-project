@@ -255,15 +255,16 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
           </div>
           <div class="modal-body">
             <form role="form">
+              <input type="hidden" name="artist" value="<?= htmlentities($details['name']) ?>">
               <div class="form-group">
                 <label for="musician">Musician</label>
-                <select class="form-control" id="musician">
+                <select class="form-control" id="musician" name="musician">
                     <?php
                         $musicians = list_results(array(), 'Musician');
                         
                         foreach ($musicians as $musician) {
                             ?>
-                                <option value=""><?= htmlentities($musician['name']) ?></option>
+                                <option value="<?= htmlentities($musician['id']) ?>"><?= htmlentities($musician['name']) ?> (Born: <?= htmlentities($musician['birth_date']) ?>, ID: <?= htmlentities($musician['id']) ?>)</option>
                             <?php
                         }
                     ?>

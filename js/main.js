@@ -56,15 +56,10 @@ $(function() {
 
         var form = dialog.find("form");
 
-        $.post("add_artist_musician.php", form.serialize())
+        $.post("add_artist_musician.php", form.serialize(), 'json')
             .done(function(response) {
-                if (response == "1") {
-                    
-                } else {
-                    alert("Could not add.\n\n"+ response);
-                }
-
-                dialog.modal('hide');
+                // If I had more time, I would do add the row to the table here
+                location.reload();
             })
             .fail(function(event, status, response) {
                 alert("Could not add.\n\n"+ response);
