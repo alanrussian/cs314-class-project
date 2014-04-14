@@ -143,8 +143,6 @@ function add($args, $table) {
 
     $query = 'insert into ' . $table . ' (' . implode(', ', array_keys($args)) . ') values (' . implode(', ', $values) . ')';
 
-    echo $query;
-
     mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
     
     $id = mysqli_insert_id($con);

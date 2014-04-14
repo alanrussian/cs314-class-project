@@ -11,7 +11,7 @@ add($args, 'ArtistMusician');
 
 // Construct output of the two relations in this many-to-many relationship
 $output = array();
-$output['artist'] = get_one(array('artist' => $args['artist']), 'Artist');
+$output['artist'] = get_one(array('name' => $args['artist']), 'Artist');
 $output['musician'] = get_one(array('id' => $args['musician']), 'Musician');
 
 header('Content-Type: application/json');
