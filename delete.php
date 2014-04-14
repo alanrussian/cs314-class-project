@@ -8,7 +8,7 @@ if (! has_permissions()) {
 }
 
 // Make sure they are deleting a valid table
-$validTables = array('Artist', 'Album', 'Song', 'Label', 'Musician', 'ArtistMusician');
+$validTables = array('Artist', 'Album', 'Song', 'Label', 'Musician', 'ArtistMusician', 'AlbumSong');
 if (! in_array($_POST['table'], $validTables)) {
     die('Invalid table specified.');
 }

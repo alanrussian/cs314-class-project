@@ -67,18 +67,8 @@ require_once('include/functions.php');
             </div>
 
             <div class="form-group">
-                <label for="filterAlbum">Album</label>
-                <input type="text" class="form-control" id="filterAlbum" name="album" placeholder="Enter album" value="<?= get_value('album') ?>">
-            </div>
-
-            <div class="form-group">
                 <label for="filterArtist">Artist</label>
                 <input type="text" class="form-control" id="filterArtist" name="artist" placeholder="Enter artist" value="<?= get_value('artist') ?>">
-            </div>
-
-            <div class="form-group">
-                <label for="filterTrackNumber">Track Number</label>
-                <input type="number" class="form-control" id="filterTrackNumber" name="trackNumber" placeholder="Enter track number" min="0" value="<?= get_value('trackNumber') ?>">
             </div>
 
             <div class="form-group">
@@ -93,9 +83,7 @@ require_once('include/functions.php');
         <table class="table table-striped results">
             <thead>
                 <tr>
-                    <th>Track Number</th>
                     <th>Title</th>
-                    <th>Album</th>
                     <th>Artist</th>
                     <th>Duration</th>
                     <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
@@ -106,8 +94,6 @@ require_once('include/functions.php');
                 <?php
                     // Set up filter
                     $filter = array(
-                        'track_number' => sanitize_get_value('trackNumber'),
-                        'album' => sanitize_get_value('album'),
                         'artist' => sanitize_get_value('artist'),
                         'title' => sanitize_get_value('title'),
                         'duration_seconds' => sanitize_get_value('durationSeconds')
@@ -119,9 +105,7 @@ require_once('include/functions.php');
                     foreach ($results as $result) {
                 ?>
                     <tr>
-                        <td data-pk="track_number"><?= $result['track_number'] ?></td>
-                        <td><?= htmlentities($result['title']) ?></td>
-                        <td data-pk="album"><a href="album_detail.php?name=<?= urlencode($result['album']) ?>"><?= htmlentities($result['album']) ?></a></td>
+                        <td data-pk="title"><?= htmlentities($result['title']) ?></td>
                         <td data-pk="artist"><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
                         <td><?= $result['duration_seconds'] ?></td>
                         <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Song"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>

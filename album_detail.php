@@ -205,16 +205,22 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                                 'artist' => $details['artist']
                             );
                             
-                            // Print Results
-                            $results = list_results($filter, 'Song');
+                            // Loop through songs
+                            $albumSongs = list_results($filter, 'AlbumSong');
 
-                            foreach ($results as $result) {
+                            foreach ($albumSongs as $albumSong) {
+                                // Now get the song
+                                $song = get_one(array(
+                                    'artist' => $albumSong['artist'],
+                                    'title' => $albumSong['song']
+                                ), 'Song');
+
                         ?>
                             <tr>
-                                <td data-pk="track_number"><?= $result['track_number'] ?></td>
-                                <td><?= htmlentities($result['title']) ?></td>
-                                <td><?= $result['duration_seconds'] ?></td>
-                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Song" data-pk-artist="<?= htmlentities($result['artist']) ?>" data-pk-album="<?= htmlentities($result['album']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
+                                <td><?= $albumSong['track_number'] ?></td>
+                                <td data-pk="song"><?= htmlentities($song['title']) ?></td>
+                                <td><?= $song['duration_seconds'] ?></td>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="AlbumSong" data-pk-artist="<?= htmlentities($albumSong['artist']) ?>" data-pk-album="<?= htmlentities($albumSong['album']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                             </tr>
                         <?php
                             }
