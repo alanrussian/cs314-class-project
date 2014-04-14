@@ -239,6 +239,39 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                         ?>
                     </tbody>
                 </table>
+
+                <h2>Songs</h2>
+                <table class="table table-striped results">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Duration</th>
+                            <?php if (has_permissions()) { ?><th class="controls"><a href="song_detail.php?new&artist=<?= urlencode($details['name']) ?>" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a></th><?php } ?>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                            // Set up filter
+                            $filter = array(
+                                'artist' => $details['name']
+                            );
+                            
+                            // Print Results
+                            $results = list_results($filter, 'Song');
+
+                            foreach ($results as $result) {
+                        ?>
+                            <tr>
+                                <td data-pk="title"><a href="song_detail.php?title=<?= urlencode($result['title']) ?>&artist=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['title']) ?></td>
+                                <td><?= $result['duration_seconds'] ?></td>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-danger delete" data-table="Song" data-pk-artist="<?= htmlentities($result['artist']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
+                            </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
         <?php
             }
         ?>
