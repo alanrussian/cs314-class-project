@@ -43,7 +43,7 @@ function list_results($args, $table) {
 
   foreach($args as $key => $value) {  
     if ($value !== NULL) {
-      $filters[] = "$key = '$value'";
+      $filters[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
     }
   }
 
@@ -74,7 +74,7 @@ function get_one($args, $table) {
 
   foreach($args as $key => $value) {  
     if ($value !== NULL) {
-      $filters[] = "$key = '$value'";
+      $filters[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
     }
   }
 
@@ -117,7 +117,7 @@ function add($args, $table) {
 	if($value == 'NULL') {
             $values[] = $value;
         } else {
-            $values[] = "'$value'";
+            $values[] = "'". mysqli_real_escape_string($con, $value) ."'";
         }
     }
 
@@ -141,7 +141,7 @@ function update($args, $objects, $table) {
 
     foreach($objects as $key => $value) {
       if($value !== null) {
-          $new_values[] = "$key = '$value'";
+          $new_values[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
       }
     }
 
@@ -149,16 +149,15 @@ function update($args, $objects, $table) {
 
     foreach($args as $key => $value) {
       if($value !== null) {
-          $new_args[] = "$key = '$value'";
+          $new_args[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
       }
     }
 
     $query = 'update ' . $table . ' set ' . implode(', ', $new_values) . ' where ' . implode(' and ', $new_args);
 
     mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
-    //echo $query;
+    
     mysqli_close($con);   
-
 }
 
 function delete($args, $table) {
