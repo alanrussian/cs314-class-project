@@ -58,6 +58,31 @@ $(function() {
 
         $.post("add_artist_musician.php", form.serialize(), 'json')
             .done(function(response) {
+                if (typeof response === 'string') {
+                    alert("Could not add.\n\n"+ response);
+                    return;
+                }
+
+                // If I had more time, I would do add the row to the table here
+                location.reload();
+            })
+            .fail(function(event, status, response) {
+                alert("Could not add.\n\n"+ response);
+            })
+    });
+
+    $("#addAlbumSong .save").click(function() {
+        var dialog = $("#addAlbumSong");
+
+        var form = dialog.find("form");
+
+        $.post("add_album_song.php", form.serialize(), 'json')
+            .done(function(response) {
+                if (typeof response === 'string') {
+                    alert("Could not add.\n\n"+ response);
+                    return;
+                }
+
                 // If I had more time, I would do add the row to the table here
                 location.reload();
             })
