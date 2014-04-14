@@ -62,6 +62,11 @@ require_once('include/functions.php');
         <h2>Filter</h2>
         <form role="form" method="get">
             <div class="form-group">
+                <label for="filterId">ID</label>
+                <input type="number" class="form-control" id="filterId" name="id" min="0" placeholder="Enter ID" value="<?= get_value('id') ?>">
+            </div>
+
+            <div class="form-group">
                 <label for="filterName">Name</label>
                 <input type="text" class="form-control" id="filterName" name="name" placeholder="Enter name" value="<?= get_value('name') ?>">
             </div>
@@ -78,6 +83,7 @@ require_once('include/functions.php');
         <table class="table table-striped results">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Birth Date</th>
                     <?php if (has_permissions()) { ?><th class="controls"><a class="btn btn-success" href="musician_detail.php?new"><span class="glyphicon glyphicon-plus"></span></a></th><?php } ?>
@@ -88,6 +94,7 @@ require_once('include/functions.php');
                 <?php
                     // Set up filter
                     $filter = array(
+                        'id' => sanitize_get_value('id'),
                         'name' => sanitize_get_value('name'),
                         'birth_date' => parse_date(sanitize_get_value('birthDate'))
                     );
@@ -98,8 +105,9 @@ require_once('include/functions.php');
                     foreach ($results as $result) {
                 ?>
                     <tr>
-                        <td data-pk="name"><a href="musician_detail.php?name=<?= urlencode($result['name']) ?>&birth_date=<?= urlencode($result['birth_date']) ?>"><?= htmlentities($result['name']) ?></a></td>
-                        <td data-pk="birth_date"><?= urlencode($result['birth_date']) ?></td>
+                        <td data-pk="id"><a href="musician_detail.php?id=<?= urlencode($result['id']) ?>"><?= htmlentities($result['id']) ?></a></td>
+                        <td><?= htmlentities($result['name']) ?></td>
+                        <td><?= urlencode($result['birth_date']) ?></td>
                             <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Musician"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                     </tr>
                 <?php

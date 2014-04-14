@@ -3,7 +3,7 @@
 require_once('include/functions.php');
 
 $args = array(
-    'name' => sanitize_get_value('name'),
+    'title' => sanitize_get_value('title'),
     'artist' => sanitize_get_value('artist')
 );
 
@@ -19,17 +19,14 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
     // See if attempting to save
     if (isset($_POST['save'])) {
         $object = array(
-            'name' => sanitize_post_value('name'),
+            'title' => sanitize_post_value('title'),
             'artist' => sanitize_post_value('artist'),
-            'type' => sanitize_post_value('type'),
-            'genre' => sanitize_post_value('genre'),
-            'release_date' => parse_date(sanitize_post_value('release_date')),
-            'label' => sanitize_post_value('label')
+            'duration_seconds' => sanitize_post_value('duration_seconds')
         );
 
         // Add the object and go to the detail page
-        add($object, 'Album');
-        redirect('album_detail.php?name='. urlencode($object['name']) .'&artist='. urlencode($object['artist']));
+        add($object, 'Song');
+        redirect('song_detail.php?title='. urlencode($object['title']) .'&artist='. urlencode($object['artist']));
     }
 
     // Not attempting to save. Display create page
@@ -37,30 +34,24 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
 
     // Create an array with attributes and given parameters (if any)
     $details = array(
-        'name' => request_value('name'),
+        'title' => request_value('title'),
         'artist' => request_value('artist'),
-        'type' => request_value('type'),
-        'genre' => request_value('genre'),
-        'release_date' => request_value('release_date'),
-        'label' => request_value('label')
+        'duration_seconds' => request_value('duration_seconds')
     );
 } else {
     // See if attempting to update 
     if (isset($_POST['save'])) {
         $object = array(
-            'name' => sanitize_post_value('name'),
+            'title' => sanitize_post_value('title'),
             'artist' => sanitize_post_value('artist'),
-            'type' => sanitize_post_value('type'),
-            'genre' => sanitize_post_value('genre'),
-            'release_date' => parse_date(sanitize_post_value('release_date')),
-            'label' => sanitize_post_value('label')
+            'duration_seconds' => sanitize_post_value('duration_seconds')
         );
 
         // Add the object and go to the detail page
-        update($args, $object, 'Album');
+        update($args, $object, 'Song');
     }
     
-    $details = get_one($args, 'Album');
+    $details = get_one($args, 'Song');
 }
 
 ?>
@@ -109,8 +100,8 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="artists.php">Artists</a></li>
-              <li class="active"><a href="albums.php">Albums</a></li>
-              <li><a href="songs.php">Songs</a></li>
+              <li><a href="albums.php">Albums</a></li>
+              <li class="active"><a href="songs.php">Songs</a></li>
               <li><a href="labels.php">Labels</a></li>
               <li><a href="musicians.php">Musicians</a></li>
           </div><!--/.nav-collapse -->
@@ -119,7 +110,7 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
 
       <!-- Main component for a primary marketing message or call to action -->
       <div>
-        <h1 class="page-header"><?= $new ? 'New Album' : 'Album: '. htmlentities($details['name']) ?></h1>
+        <h1 class="page-header"><?= $new ? 'New Song' : 'Song: '. htmlentities($details['title']) ?></h1>
         <h2>Attributes</h2>
         <form role="form" method="post">
             <?php
@@ -131,8 +122,8 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
             ?>
 
             <div class="form-group">
-                <label for="editName">Name</label>
-                <input type="text" class="form-control" id="editName" name="name" placeholder="Enter name" value="<?= htmlentities($details['name']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <label for="editTitle">Title</label>
+                <input type="text" class="form-control" id="editTitle" name="title" placeholder="Enter title" value="<?= htmlentities($details['title']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
             <div class="form-group">
@@ -148,51 +139,27 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="editType">Type</label>
-                <select class="form-control" id="editType" name="type"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-                    <option value="LP" <?= $details['type'] === 'LP' ? ' selected="selected"' : '' ?>>LP</option>
-                    <option value="EP" <?= $details['type'] === 'EP' ? ' selected="selected"' : '' ?>>EP</option>
-                    <option value="Single" <?= $details['type'] === 'Single' ? ' selected="selected"' : '' ?>>Single</option>
-                </select>
-            </div>
 
             <div class="form-group">
-                <label for="editGenre">Genre</label>
-                <input type="text" class="form-control" id="editGenre" name="genre" value="<?= $details['genre'] ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
+                <label for="editDurationSeconds">Duration (Seconds)</label>
+                <input type="text" class="form-control" id="editDurationSeconds" name="duration_seconds" placeholder="Enter duration in seconds" value="<?= htmlentities($details['duration_seconds']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
             </div>
 
-            <div class="form-group">
-                <label for="editReleaseDate">Relase Date</label>
-                <input type="text" class="form-control" id="editReleaseDate" name="release_date" placeholder="Enter release date" value="<?= htmlentities($details['release_date']) ?>"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-            </div>
-
-            <div class="form-group">
-                <label for="editLabel">Label</label>
-                <select class="form-control" id="editLabel" name="label"<?php if (! has_permissions()) { ?> readonly="readonly"<?php } ?>>
-                    <?php
-                        $labels = get_distinct('name', 'Label');
-
-                        foreach($labels as $label) {
-                    ?> 
-                        <option value="<?= htmlentities($label) ?>"<?= $details['label'] === $label ? ' selected="selected"' : '' ?>><?= htmlentities($label) ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-
-            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" name="save" value="<?= $new ? 'Create Album' : 'Save Changes' ?>"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
+            <?php if (has_permissions()) { ?><input type="submit" class="btn btn-primary" name="save" value="<?= $new ? 'Create Song' : 'Save Changes' ?>"> <input type="reset" class="btn btn-default" value="Reset Values"><?php } ?>
         </form>
         
         <?php
             if (! $new) {
         ?>
-                <h2>Songs</h2>
+                <h2>Albums</h2>
                 <table class="table table-striped results">
                     <thead>
                         <tr>
-                            <th>Track Number</th>
-                            <th>Title</th>
-                            <th>Duration</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Genre</th>
+                            <th>Release Date</th>
+                            <th>Label</th>
                             <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                         </tr>
                     </thead>
@@ -201,26 +168,28 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                         <?php
                             // Set up filter
                             $filter = array(
-                                'album' => $details['name'],
+                                'song' => $details['title'],
                                 'artist' => $details['artist']
                             );
                             
-                            // Loop through songs
+                            // Loop through albums
                             $albumSongs = list_results($filter, 'AlbumSong');
 
                             foreach ($albumSongs as $albumSong) {
-                                // Now get the song
-                                $song = get_one(array(
-                                    'artist' => $albumSong['artist'],
-                                    'title' => $albumSong['song']
-                                ), 'Song');
+                                // Now get the album 
+                                $album = get_one(array(
+                                    'name' => $albumSong['album'],
+                                    'artist' => $albumSong['artist']
+                                ), 'Album');
 
                         ?>
                             <tr>
-                                <td><?= $albumSong['track_number'] ?></td>
-                                <td data-pk="song"><?= htmlentities($song['title']) ?></td>
-                                <td><?= $song['duration_seconds'] ?></td>
-                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="AlbumSong" data-pk-artist="<?= htmlentities($albumSong['artist']) ?>" data-pk-album="<?= htmlentities($albumSong['album']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
+                                <td data-pk="album"><a href="album_detail.php?name=<?= urlencode($album['name']) ?>&artist=<?= urlencode($album['artist']) ?>"><?= htmlentities($album['name']) ?></a></td>
+                                <td><?= htmlentities($album['type']) ?></td>
+                                <td><?= htmlentities($album['genre']) ?></td>
+                                <td><?= htmlentities($album['release_date']) ?></td>
+                                <td><a href="labels.php?name=<?= urlencode($album['label']) ?>"><?= htmlentities($album['label']) ?></a></td>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="AlbumSong" data-pk-artist="<?= htmlentities($album['artist']) ?>" data-pk-song="<?= htmlentities($albumSong['song']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                             </tr>
                         <?php
                             }
