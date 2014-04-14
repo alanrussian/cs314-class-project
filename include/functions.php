@@ -114,7 +114,7 @@ function add($args, $table) {
     $values = array();
 
     foreach(array_values($args) as $value) {
-	if(is_null($value)) {
+	if($value == 'NULL') {
             $values[] = $value;
         } else {
             $values[] = "'$value'";
@@ -122,6 +122,8 @@ function add($args, $table) {
     }
 
     $query = 'insert into ' . $table . ' (' . implode(', ', array_keys($args)) . ') values (' . implode(', ', $values) . ')';
+
+    echo $query;
 
     mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
     
