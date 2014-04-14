@@ -3,7 +3,7 @@
 require_once('credentials.php');
 
 define('START_YEAR', 1900);
-define('END_YEAR_OFFSET', 1); // e.g., 1 = current year + 1
+define('END_YEAR_OFFSET', 0); // e.g., 1 = current year + 1
 
 // Permission stuff
 session_start();
