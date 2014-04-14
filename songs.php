@@ -86,7 +86,7 @@ require_once('include/functions.php');
                     <th>Title</th>
                     <th>Artist</th>
                     <th>Duration</th>
-                    <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                    <?php if (has_permissions()) { ?><th class="controls"><a href="song_detail.php?new" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a></th><?php } ?>
                 </tr>
             </thead>
 
@@ -105,7 +105,7 @@ require_once('include/functions.php');
                     foreach ($results as $result) {
                 ?>
                     <tr>
-                        <td data-pk="title"><?= htmlentities($result['title']) ?></td>
+                        <td data-pk="title"><a href="song_detail.php?title=<?= urlencode($result['title']) ?>&artist=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['title']) ?></td>
                         <td data-pk="artist"><a href="artist_detail.php?name=<?= urlencode($result['artist']) ?>"><?= htmlentities($result['artist']) ?></a></td>
                         <td><?= $result['duration_seconds'] ?></td>
                         <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Song"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
