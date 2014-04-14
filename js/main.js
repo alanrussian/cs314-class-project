@@ -1,5 +1,9 @@
 $(function() {
     $(".results .delete").click(function() {
+        if (! confirm("Are you sure that you want to delete this?")) {
+            return;
+        }
+
         // Gather elements
         var row = $(this).closest("tr");
 
