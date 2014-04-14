@@ -34,7 +34,7 @@ function has_permissions() {
     return isset($_SESSION['editing']);
 }
 
-function list_results($args, $table) {
+function list_results($args, $table, $sort = '') {
   $con = mysqli_connect(HOST, USER, PASS, DB);
   
   $query = 'select * from ' . $table;
@@ -49,6 +49,10 @@ function list_results($args, $table) {
 
   if(sizeof($filters) > 0) {
     $query .= ' where ' . implode(' and ', $filters);
+  }
+
+  if (! empty($sort)) {
+      $query .= ' ORDER BY '. $sort;
   }
 
   $results = mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));

@@ -206,7 +206,7 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                             );
                             
                             // Loop through songs
-                            $albumSongs = list_results($filter, 'AlbumSong');
+                            $albumSongs = list_results($filter, 'AlbumSong', 'track_number ASC');
 
                             foreach ($albumSongs as $albumSong) {
                                 // Now get the song
