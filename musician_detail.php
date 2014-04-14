@@ -3,8 +3,7 @@
 require_once('include/functions.php');
 
 $args = array(
-    'name' => sanitize_get_value('name'),
-    'birth_date' => sanitize_get_value('birth_date')
+    'id' => sanitize_get_value('id')
 );
 
 // Determine whether new record
@@ -24,8 +23,8 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
         );
 
         // Add the object and go to the detail page
-        add($object, 'Musician');
-        redirect('musician_detail.php?name='. urlencode($object['name']) .'&birth_date='. urlencode($object['birth_date']));
+        $id = add($object, 'Musician');
+        redirect('musician_detail.php?id='. urlencode($id));
     }
 
     // Not attempting to save. Display create page
@@ -151,8 +150,7 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                         <?php
                             // Set up filter
                             $filter = array(
-                                'musician_name' => $details['name'],
-                                'musician_birth_date' => $details['birth_date']
+                                'musician' => $details['id']
                             );
                             
                             // Print Results

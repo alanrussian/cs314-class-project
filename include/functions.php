@@ -125,7 +125,11 @@ function add($args, $table) {
 
     mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
     
+    $id = mysqli_insert_id($con);
+
     mysqli_close($con);   
+
+    return $id;
 }
 
 function update($args, $objects, $table) {
