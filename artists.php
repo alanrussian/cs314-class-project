@@ -151,5 +151,12 @@ require_once('include/functions.php');
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     
     <script src="js/main.js"></script>
+    <script src="js/typeahead.bundle.js"></script>
+    <script src="js/bootstrap3-typeahead.js"></script>
+    <script>
+        add_typeahead('#filterName', 'name', 'Artist');
+        add_typeahead('#filterLocation', 'founded_location', 'Artist');
+        add_typeahead('#filterWebsite', 'website', 'Artist');
+    </script>
   </body>
 </html>

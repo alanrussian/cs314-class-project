@@ -124,3 +124,17 @@
         });
     });
 })();
+
+function add_typeahead(element, attr, table) {
+    var typeahead = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: 'autocomplete.php?attr='+ encodeURIComponent(attr) +'&table='+ encodeURIComponent(table) +'&query=%QUERY'
+    });
+
+    typeahead.initialize();
+
+    $(element).typeahead({
+        source: typeahead.ttAdapter()
+    }).attr("autocomplete", "off");
+}

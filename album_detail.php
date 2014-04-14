@@ -281,5 +281,10 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     
     <script src="js/main.js"></script>
+    <script src="js/typeahead.bundle.js"></script>
+    <script src="js/bootstrap3-typeahead.js"></script>
+    <script>
+        add_typeahead('#editGenre', 'genre', 'Album');
+    </script>
   </body>
 </html>

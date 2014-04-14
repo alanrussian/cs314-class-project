@@ -108,6 +108,26 @@ function get_distinct($attr, $table) {
     return $retval;
 }
 
+function get_autocomplete($query, $attr, $table) {
+    $con = mysqli_connect(HOST, USER, PASS, DB);
+
+    $attr = mysqli_real_escape_string($con, $attr);
+    $query = 'select distinct ' . $attr . ' from ' . $table .' where '. $attr .' LIKE \''. mysqli_real_escape_string($con, $query) .'%\''; 
+
+    $results = mysqli_query($con, $query) or die('Query failed: ' . mysqli_error($con));
+    
+    mysqli_close($con);
+
+    $retval = array();
+
+    // cant believe i need to do this bullshit
+    foreach($results as $result) {
+        $retval[] = $result[$attr];
+    }
+
+    return $retval;
+}
+
 function add($args, $table) {
     $con = mysqli_connect(HOST, USER, PASS, DB);
 
