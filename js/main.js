@@ -46,4 +46,24 @@ $(function() {
                 alert("Could not delete.\n\n"+ response);
             });
     });
+
+    $("#addArtistMusician .save").click(function() {
+        var dialog = $("#addArtistMusician");
+
+        var form = dialog.find("form");
+
+        $.post("add_artist_musician.php", form.serialize())
+            .done(function(response) {
+                if (response == "1") {
+                    
+                } else {
+                    alert("Could not add.\n\n"+ response);
+                }
+
+                dialog.modal('hide');
+            })
+            .fail(function(event, status, response) {
+                alert("Could not add.\n\n"+ response);
+            })
+    });
 });

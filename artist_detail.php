@@ -208,7 +208,7 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                         <tr>
                             <th>Name</th>
                             <th>Birth Date</th>
-                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
+                            <?php if (has_permissions()) { ?><th class="controls"><button class="btn btn-success" data-toggle="modal" data-target="#addArtistMusician"><span class="glyphicon glyphicon-plus"></span></button></th><?php } ?>
                         </tr>
                     </thead>
 
@@ -245,6 +245,39 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
       </div>
 
     </div> <!-- /container -->
+
+    <div class="modal fade" id="addArtistMusician">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Add Musician</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="musician">Musician</label>
+                <select class="form-control" id="musician">
+                    <?php
+                        $musicians = list_results(array(), 'Musician');
+                        
+                        foreach ($musicians as $musician) {
+                            ?>
+                                <option value=""><?= htmlentities($musician['name']) ?></option>
+                            <?php
+                        }
+                    ?>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary save">Add Musician</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
     <!-- Bootstrap core JavaScript
