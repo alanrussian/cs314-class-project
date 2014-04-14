@@ -108,7 +108,7 @@ require_once('include/functions.php');
                         <td data-pk="id"><a href="musician_detail.php?id=<?= urlencode($result['id']) ?>"><?= htmlentities($result['id']) ?></a></td>
                         <td><?= htmlentities($result['name']) ?></td>
                         <td><?= urlencode($result['birth_date']) ?></td>
-                            <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="Musician"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
+                            <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-danger delete" data-table="Musician"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                     </tr>
                 <?php
                     }

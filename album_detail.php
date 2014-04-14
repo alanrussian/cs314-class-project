@@ -220,7 +220,7 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                                 <td><?= $albumSong['track_number'] ?></td>
                                 <td data-pk="song"><?= htmlentities($song['title']) ?></td>
                                 <td><?= $song['duration_seconds'] ?></td>
-                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="AlbumSong" data-pk-artist="<?= htmlentities($albumSong['artist']) ?>" data-pk-album="<?= htmlentities($albumSong['album']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-danger delete" data-table="AlbumSong" data-pk-artist="<?= htmlentities($albumSong['artist']) ?>" data-pk-album="<?= htmlentities($albumSong['album']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                             </tr>
                         <?php
                             }

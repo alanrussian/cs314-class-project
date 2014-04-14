@@ -191,7 +191,7 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                                 <td><?= htmlentities($album['genre']) ?></td>
                                 <td><?= htmlentities($album['release_date']) ?></td>
                                 <td><a href="labels.php?name=<?= urlencode($album['label']) ?>"><?= htmlentities($album['label']) ?></a></td>
-                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button> <button class="btn btn-danger delete" data-table="AlbumSong" data-pk-artist="<?= htmlentities($album['artist']) ?>" data-pk-song="<?= htmlentities($albumSong['song']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-danger delete" data-table="AlbumSong" data-pk-artist="<?= htmlentities($album['artist']) ?>" data-pk-song="<?= htmlentities($albumSong['song']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                             </tr>
                         <?php
                             }
