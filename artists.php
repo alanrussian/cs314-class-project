@@ -83,7 +83,7 @@ require_once('include/functions.php');
                 <label for="filterYearDisbanded">Year Disbanded</label>
                 <select class="form-control" id="filterYearDisbanded" name="yearDisbanded">
                     <option value="">-----</option>
-                    <option value="NULL">Still Together</option>
+                    <option value="NULL" <?= sanitize_get_value('yearDisbanded') === 'NULL' ? ' selected="selected"' : '' ?>>Still Together</option>
                     <?php print_year_options(sanitize_get_value('yearDisbanded')); ?>
                 </select>
             </div>
@@ -112,12 +112,15 @@ require_once('include/functions.php');
 
             <tbody>
                 <?php
+                    // If it is NULL, then they actually mean NULL!
+                    $disbandedYear = sanitize_get_value('yearDisbanded');
+
                     // Set up filter
                     $filter = array(
                         'name' => sanitize_get_value('name'),
                         'founded_year' => sanitize_get_value('yearFounded'),
                         'founded_location' => sanitize_get_value('locationFounded'),
-                        'disbanded_year' => sanitize_get_value('yearDisbanded'),
+                        'disbanded_year' => $disbandedYear,
                         'website' => sanitize_get_value('website')
                     );
                     

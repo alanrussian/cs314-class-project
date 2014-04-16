@@ -43,7 +43,11 @@ function list_results($args, $table, $sort = '') {
 
   foreach($args as $key => $value) {  
     if ($value !== NULL) {
-      $filters[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
+      if ($value === 'NULL') {
+          $filters[] = "$key is NULL";
+      } else {
+          $filters[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
+      }
     }
   }
 
@@ -77,9 +81,11 @@ function get_one($args, $table) {
   $filters = array();
 
   foreach($args as $key => $value) {  
-    if ($value !== NULL) {
-      $filters[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
-    }
+      if ($value === 'NULL') {
+          $filters[] = "$key is NULL";
+      } else {
+          $filters[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
+      }
   }
 
   if(sizeof($filters) > 0) {
@@ -138,8 +144,8 @@ function add($args, $table) {
     $values = array();
 
     foreach(array_values($args) as $value) {
-	if($value == 'NULL') {
-            $values[] = $value;
+    	if($value == NULL || $value === 'NULL') {
+            $values[] = 'NULL';
         } else {
             $values[] = "'". mysqli_real_escape_string($con, $value) ."'";
         }
@@ -162,8 +168,10 @@ function update($args, $objects, $table) {
     $new_values = [];
 
     foreach($objects as $key => $value) {
-      if($value !== null) {
+      if($value !== null && $value !== 'NULL') {
           $new_values[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
+      } else {
+          $new_values[] = "$key = NULL";
       }
     }
 
@@ -171,7 +179,11 @@ function update($args, $objects, $table) {
 
     foreach($args as $key => $value) {
       if($value !== null) {
-          $new_args[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
+          if ($value === 'NULL') {
+              $new_args[] = "$key is NULL";
+          } else {
+              $new_args[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
+          }
       }
     }
 
@@ -191,7 +203,11 @@ function delete($args, $table) {
 
   foreach($args as $key => $value) {  
     if ($value !== NULL) {
-      $filters[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
+      if ($value === 'NULL') {
+          $filters[] = "$key is NULL";
+      } else {
+          $filters[] = "$key = '". mysqli_real_escape_string($con, $value) ."'";
+      }
     }
   }
 
@@ -220,7 +236,7 @@ function get_value($parameter) {
     if ($value === NULL) {
         return '';
     } else {
-        return htmlentities($_GET[$parameter]);
+        return $value;
     }
 }
 
@@ -230,7 +246,7 @@ function post_value($parameter) {
     if ($value === NULL) {
         return '';
     } else {
-        return htmlentities($_GET[$paramete]);
+        return $value;
     }
 }
 
