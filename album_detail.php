@@ -56,8 +56,9 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
             'label' => sanitize_post_value('label')
         );
 
-        // Add the object and go to the detail page
+        // Update the object and go to the detail page
         update($args, $object, 'Album');
+        redirect('album_detail.php?name='. urlencode($object['name']) .'&artist='. urlencode($object['artist']));
     }
     
     $details = get_one($args, 'Album');

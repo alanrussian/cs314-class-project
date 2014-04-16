@@ -47,8 +47,9 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
             'duration_seconds' => sanitize_post_value('duration_seconds')
         );
 
-        // Add the object and go to the detail page
+        // Update the object and go to the detail page
         update($args, $object, 'Song');
+        redirect('song_detail.php?title='. urlencode($object['title']) .'&artist='. urlencode($object['artist']));
     }
     
     $details = get_one($args, 'Song');

@@ -43,7 +43,7 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
             'birth_date' => parse_date(sanitize_post_value('birth_date'))
         );
 
-        // Add the object and go to the detail page
+        // Update the object and go to the detail page
         update($args, $object, 'Musician');
     }
     
