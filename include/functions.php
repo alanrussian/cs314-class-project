@@ -110,7 +110,6 @@ function get_distinct($attr, $table) {
 
     $retval = array();
 
-    // cant believe i need to do this bullshit
     foreach($results as $result) {
         $retval[] = $result[$attr];
     }
@@ -130,7 +129,6 @@ function get_autocomplete($query, $attr, $table) {
 
     $retval = array();
 
-    // cant believe i need to do this bullshit
     foreach($results as $result) {
         $retval[] = $result[$attr];
     }
