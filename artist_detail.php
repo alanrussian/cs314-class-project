@@ -230,10 +230,10 @@ if (isset($_GET['new']) || isset($_POST['new'])) {
                                 $result = get_one(array('id' => $artistMusician['musician']), 'Musician');
                         ?>
                             <tr>
-                                <td data-pk="id"><a href="musician_detail.php?id=<?= urlencode($result['id']) ?>"><?= htmlentities($result['id']) ?></a></td>
+                                <td data-pk="musician"><a href="musician_detail.php?id=<?= urlencode($result['id']) ?>"><?= htmlentities($result['id']) ?></a></td>
                                 <td><?= htmlentities($result['name']) ?></td>
                                 <td><?= urlencode($result['birth_date']) ?></td>
-                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-danger delete" data-table="Musician"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
+                                <?php if (has_permissions()) { ?><td class="controls"><button class="btn btn-danger delete" data-table="ArtistMusician" data-pk-artist="<?= htmlentities($details['name']) ?>"><span class="glyphicon glyphicon-trash"></span></button></td><?php } ?>
                             </tr>
                         <?php
                             }
